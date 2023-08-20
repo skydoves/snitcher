@@ -1,0 +1,56 @@
+public final class com/skydoves/snitcherdemo/BuildConfig {
+	public static final field APPLICATION_ID Ljava/lang/String;
+	public static final field BUILD_TYPE Ljava/lang/String;
+	public static final field DEBUG Z
+	public static final field VERSION_CODE I
+	public static final field VERSION_NAME Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class com/skydoves/snitcherdemo/ComposableSingletons$MainActivityKt {
+	public static final field INSTANCE Lcom/skydoves/snitcherdemo/ComposableSingletons$MainActivityKt;
+	public static field lambda-1 Lkotlin/jvm/functions/Function3;
+	public fun <init> ()V
+	public final fun getLambda-1$demo_release ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class com/skydoves/snitcherdemo/ComposableSingletons$SecondActivityKt {
+	public static final field INSTANCE Lcom/skydoves/snitcherdemo/ComposableSingletons$SecondActivityKt;
+	public static field lambda-1 Lkotlin/jvm/functions/Function3;
+	public static field lambda-2 Lkotlin/jvm/functions/Function2;
+	public static field lambda-3 Lkotlin/jvm/functions/Function2;
+	public fun <init> ()V
+	public final fun getLambda-1$demo_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda-2$demo_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda-3$demo_release ()Lkotlin/jvm/functions/Function2;
+}
+
+public final class com/skydoves/snitcherdemo/MainActivity : androidx/activity/ComponentActivity {
+	public static final field $stable I
+	public fun <init> ()V
+}
+
+public final class com/skydoves/snitcherdemo/SecondActivity : androidx/activity/ComponentActivity {
+	public static final field $stable I
+	public fun <init> ()V
+}
+
+public final class com/skydoves/snitcherdemo/SnitcherDemoApp : android/app/Application {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun onCreate ()V
+}
+
+public final class com/skydoves/snitcherdemo/ui/theme/ColorKt {
+	public static final fun getPink40 ()J
+	public static final fun getPink80 ()J
+	public static final fun getPurple40 ()J
+	public static final fun getPurple80 ()J
+	public static final fun getPurpleGrey40 ()J
+	public static final fun getPurpleGrey80 ()J
+}
+
+public final class com/skydoves/snitcherdemo/ui/theme/ThemeKt {
+	public static final fun SnitcherDemoTheme (ZLkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
