@@ -8,7 +8,7 @@ Snitcher.install(
   traceActivity = if (BuildConfig.DEBUG) {
     MyExceptionTraceActivity::class
   } else {
-    traceActivity = RestoreActivity::class,
+    RestoreActivity::class
   },
   exceptionHandler = {
     if (!BuildConfig.DEBUG) {
