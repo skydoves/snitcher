@@ -1,4 +1,4 @@
-# Custom Exception Trace Screen
+# Exception Trace Screen
 
 Snitcher provides ready-to-use exception tracing screens (such as `ExceptionTraceActivity`, built with the `ExceptionTraceScreen` Composable), giving you the flexibility to extensively tailor these screens according to your preferences, and even design your own distinct tracing interfaces. 
 
