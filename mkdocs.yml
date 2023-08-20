@@ -1,7 +1,7 @@
-site_name: Landscapist
-site_description: 'A pluggable, highly optimized Jetpack Compose image loading library that fetches and displays network images with Glide, Coil, and Fresco.'
+site_name: Snitcher
+site_description: 'Snitcher captures global crashes, enabling easy redirection to the exception tracing screen for swift recovery.'
 site_author: 'Jaewoong (skydoves)'
-site_url: 'https://github.com/skydoves/landscapist'
+site_url: 'https://github.com/skydoves/snitcher'
 edit_uri: 'tree/main/docs/'
 remote_branch: gh-pages
 
@@ -10,44 +10,28 @@ docs_dir: docs
 # Navigation
 nav:
   - 'Overview': index.md
-  - 'Snapshot': snapshot.md
-  - 'Glide':
-    - 'Overview': glide/overview.md
-    - 'Custom Options': glide/options.md
-  - 'Coil':
-    - 'Overview': coil/overview.md
-    - 'Custom ImageLoader': coil/imageloader.md
-  - 'Fresco':
-    - 'Overview': fresco/overview.md
-    - 'Custom ImageRequest': fresco/request.md
-    - 'Animated Image Support': 'fresco/animated-image.md' 
-  - 'Image Options': image-options.md
-  - 'Image States': image-state.md
-  - 'Custom Composable': custom-composable.md
-  - 'Preview on Android Studio': preview.md
-  - 'Placeholder': placeholder.md
-  - 'Animation': animation.md
-  - 'Transformation': transformation.md
-  - 'Palette': palette.md
-  - 'Image Component and Plugin': image-component-and-plugin.md
-  - 'BOM': bom.md
-  - 'Snapshots With Paparazzi': snapshots-with-paparazzi.md
+  - 'Trace Global Exception': trace-global-exception.md
+  - 'Exception Screen': custom-trace-screen.md
+  - 'Launcher Activity': custom-launcher-activity.md
+  - 'Snitcher Theme': custom-theme.md
+  - 'Build Types': custom-build-type.md
+  - 'Trace Strategy': trace-strategy.md
   - 'Sponsor 🩷': sponsor.md
     
 # Repository
-repo_name: 'Landscapist'
-repo_url: 'https://github.com/skydoves/landscapist'
+repo_name: 'snitcher'
+repo_url: 'https://github.com/skydoves/snitcher'
 
 # Configuration
 theme:
   name: 'material'
   language: 'en'
   icon:
-    logo: material/leaf-maple
+    logo: material/owl
 
   palette:
-    primary: 'red'
-    accent: 'red'
+    primary: 'blue'
+    accent: 'blue'
     scheme: slate
 
   font:
