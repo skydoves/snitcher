@@ -25,6 +25,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import com.skydoves.snitcher.ui.theme.SnitcherTheme
 
 class SecondActivity : ComponentActivity() {
@@ -39,7 +40,9 @@ class SecondActivity : ComponentActivity() {
             .background(SnitcherTheme.colors.background),
         ) {
           Button(
-            modifier = Modifier.align(Alignment.Center),
+            modifier = Modifier
+              .align(Alignment.Center)
+              .testTag("exception"),
             onClick = { throw RuntimeException("This is an intended runtime exception.") },
           ) {
             Text(text = "Exception")

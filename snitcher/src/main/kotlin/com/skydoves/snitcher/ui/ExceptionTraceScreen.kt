@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:OptIn(ExperimentalComposeUiApi::class)
+
 package com.skydoves.snitcher.ui
 
 import android.content.Intent
@@ -39,10 +41,12 @@ import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -80,7 +84,8 @@ private fun ExceptionTraceScreenContent(
     modifier = Modifier
       .background(SnitcherTheme.colors.background)
       .verticalScroll(scrollState)
-      .padding(16.dp),
+      .padding(16.dp)
+      .testTag("exception_trace_screen"),
   ) {
     val title = remember(snitcherException) {
       snitcherException.stackTrace.split(":").firstOrNull()?.split(".")?.last().orEmpty()
