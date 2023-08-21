@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:OptIn(ExperimentalComposeUiApi::class)
+
 package com.skydoves.snitcherdemo
 
 import android.os.Bundle
@@ -24,8 +26,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import com.skydoves.snitcher.ui.theme.SnitcherTheme
 
 class SecondActivity : ComponentActivity() {
@@ -37,7 +42,8 @@ class SecondActivity : ComponentActivity() {
         Box(
           modifier = Modifier
             .fillMaxSize()
-            .background(SnitcherTheme.colors.background),
+            .background(SnitcherTheme.colors.background)
+            .semantics { testTagsAsResourceId = true },
         ) {
           Button(
             modifier = Modifier

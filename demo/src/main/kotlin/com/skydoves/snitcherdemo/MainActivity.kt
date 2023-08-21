@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:OptIn(ExperimentalComposeUiApi::class)
+@file:OptIn(ExperimentalComposeUiApi::class, ExperimentalComposeUiApi::class)
 
 package com.skydoves.snitcherdemo
 
@@ -44,9 +44,7 @@ class MainActivity : ComponentActivity() {
           modifier = Modifier
             .fillMaxSize()
             .background(SnitcherTheme.colors.background)
-            .semantics {
-              testTagsAsResourceId = true
-            },
+            .semantics { testTagsAsResourceId = true },
         ) {
           Button(
             modifier = Modifier
