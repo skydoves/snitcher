@@ -29,3 +29,4 @@ dependencyResolutionManagement {
 rootProject.name = "SnitcherDemo"
 include(":demo")
 include(":snitcher")
+include(":benchmark")

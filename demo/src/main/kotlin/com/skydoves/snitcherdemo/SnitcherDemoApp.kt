@@ -17,7 +17,6 @@ package com.skydoves.snitcherdemo
 
 import android.app.Application
 import com.skydoves.snitcher.Snitcher
-import com.skydoves.snitcher.TraceStrategy
 
 class SnitcherDemoApp : Application() {
 
