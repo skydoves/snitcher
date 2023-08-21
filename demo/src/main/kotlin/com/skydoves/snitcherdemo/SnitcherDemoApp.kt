@@ -26,7 +26,6 @@ class SnitcherDemoApp : Application() {
 
     Snitcher.install(
       application = this,
-      traceStrategy = TraceStrategy.REPLACE,
       exceptionHandler = {
         // do something
       },
