@@ -141,6 +141,10 @@ public class Snitcher(
           ),
         )
 
+        // call the default exception handler for integrating with other libraries.
+        defaultExceptionHandler(thread, throwable)
+
+        // trace exceptions and launch activity
         if (traceStrategy == TraceStrategy.CO_WORK) {
           exceptionHandler.invoke(snitcherException)
           launchExceptionTracingActivity(this@run)
@@ -150,22 +154,30 @@ public class Snitcher(
 
         // kill the current process.
         Process.killProcess(Process.myPid())
-        exitProcess(-1)
+        exitProcess(10)
       }
     } ?: defaultExceptionHandler.uncaughtException(thread, throwable)
   }
 
-  private fun launchExceptionTracingActivity(activity: Activity) =
-    activity.run {
-      val launcher = Class.forName(traceActivityClass.java.name)
+  private fun launchExceptionTracingActivity(activity: Activity) = activity.run {
+    val launcher = Class.forName(traceActivityClass.java.name)
 
-      startActivity(
-        Intent().setClass(this, launcher).apply {
-          flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        },
-      )
-      finish()
+    startActivity(
+      Intent().setClass(this, launcher).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+      },
+    )
+    finish()
+  }
+
+  private fun defaultExceptionHandler(thread: Thread, throwable: Throwable) {
+    val packages = listOf("com.google.firebase.crashlytics")
+    packages.forEach {
+      if (defaultExceptionHandler::class.java.canonicalName?.startsWith(it) == true) {
+        defaultExceptionHandler.uncaughtException(thread, throwable)
+      }
     }
+  }
 
   public companion object {
 
