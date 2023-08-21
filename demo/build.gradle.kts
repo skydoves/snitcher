@@ -18,6 +18,7 @@ import com.skydoves.snitcher.Configuration
 plugins {
   id(libs.plugins.android.application.get().pluginId)
   id(libs.plugins.kotlin.android.get().pluginId)
+  id(libs.plugins.baseline.profile.get().pluginId)
 }
 
 android {
@@ -53,6 +54,12 @@ android {
     debug {
       isDebuggable = true
     }
+    create("benchmark") {
+      initWith(buildTypes.getByName("release"))
+      signingConfig = signingConfigs.getByName("debug")
+      matchingFallbacks += listOf("release")
+      isDebuggable = false
+    }
   }
 
   lint {
@@ -73,4 +80,6 @@ dependencies {
   implementation(libs.androidx.compose.constraintlayout)
 
   implementation(libs.coroutines)
+
+  baselineProfile(project(":benchmark"))
 }

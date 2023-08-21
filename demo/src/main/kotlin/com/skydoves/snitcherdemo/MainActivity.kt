@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:OptIn(ExperimentalComposeUiApi::class, ExperimentalComposeUiApi::class)
+
 package com.skydoves.snitcherdemo
 
 import android.content.Intent
@@ -25,7 +27,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import com.skydoves.snitcher.ui.theme.SnitcherTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,10 +43,13 @@ class MainActivity : ComponentActivity() {
         Box(
           modifier = Modifier
             .fillMaxSize()
-            .background(SnitcherTheme.colors.background),
+            .background(SnitcherTheme.colors.background)
+            .semantics { testTagsAsResourceId = true },
         ) {
           Button(
-            modifier = Modifier.align(Alignment.Center),
+            modifier = Modifier
+              .align(Alignment.Center)
+              .testTag("launch_second_activity"),
             onClick = {
               val intent = Intent(this@MainActivity, SecondActivity::class.java)
               startActivity(intent)

@@ -20,6 +20,7 @@ plugins {
   id(libs.plugins.kotlin.android.get().pluginId)
   id(libs.plugins.kotlin.serialization.get().pluginId)
   id(libs.plugins.nexus.plugin.get().pluginId)
+  id(libs.plugins.baseline.profile.get().pluginId)
 }
 
 apply(from = "${rootDir}/scripts/publish-module.gradle.kts")
@@ -75,6 +76,12 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
   )
 }
 
+baselineProfile {
+  filter {
+    include("com.skydoves.snitcher.**")
+  }
+}
+
 dependencies {
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.androidx.activity.compose)
@@ -93,4 +100,6 @@ dependencies {
   implementation(libs.kotlinx.serialization.protobuf)
 
   implementation(libs.coroutines)
+
+  baselineProfile(project(":benchmark"))
 }
