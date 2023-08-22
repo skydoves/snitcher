@@ -1,6 +1,6 @@
 # Tracing Global Exceptions
 
-You can trace the global exceptions by providing `exceptionHandler` lambd parameter. This can be highly beneficial if you intend to gather and report exceptions to other platforms, such as [Firebase Crashlyrics](https://firebase.google.com/docs/crashlytics).
+You can trace the global exceptions by providing `exceptionHandler` lambda parameter. This can be highly beneficial if you intend to gather and report exceptions to other platforms, such as [Firebase Crashlyrics](https://firebase.google.com/docs/crashlytics).
 
 ```kotlin
 Snitcher.install(
