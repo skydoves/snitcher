@@ -172,11 +172,14 @@ public class Snitcher(
 
   private fun defaultExceptionHandler(thread: Thread, throwable: Throwable) {
     try {
-      val packages = listOf("com.google.firebase.crashlytics")
-      packages.forEach {
-        if (defaultExceptionHandler::class.java.canonicalName?.startsWith(it) == true) {
-          defaultExceptionHandler.uncaughtException(thread, throwable)
-        }
+      if (defaultExceptionHandler::class.java.canonicalName?.startsWith(
+          "com.android.internal.os",
+        ) != true &&
+        defaultExceptionHandler::class.java.canonicalName?.startsWith(
+          "com.google.firebase.crashlytics",
+        ) != true
+      ) {
+        defaultExceptionHandler.uncaughtException(thread, throwable)
       }
     } catch (_: Exception) {
     }
