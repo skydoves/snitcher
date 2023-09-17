@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:OptIn(ExperimentalComposeUiApi::class)
-
 package com.skydoves.snitcher.ui
 
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.os.Build
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -41,7 +40,6 @@ import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
@@ -54,7 +52,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.skydoves.snitcher.R
 import com.skydoves.snitcher.extensions.findActivity
+import com.skydoves.snitcher.extensions.packageInfo
 import com.skydoves.snitcher.extensions.toast
+import com.skydoves.snitcher.extensions.versionCode
 import com.skydoves.snitcher.model.SnitcherException
 import com.skydoves.snitcher.ui.theme.SnitcherStatusBarColor
 import com.skydoves.snitcher.ui.theme.SnitcherTheme
@@ -79,6 +79,7 @@ private fun ExceptionTraceScreenContent(
 ) {
   val context = LocalContext.current
   val scrollState = rememberScrollState()
+  val packageInfo = remember { context.packageInfo() }
 
   Column(
     modifier = Modifier
@@ -101,6 +102,14 @@ private fun ExceptionTraceScreenContent(
     Text(
       modifier = Modifier.padding(vertical = 6.dp),
       text = snitcherException.message,
+      color = SnitcherTheme.colors.textHighEmphasis,
+      fontSize = 18.sp,
+    )
+
+    Text(
+      modifier = Modifier.padding(vertical = 6.dp),
+      text = "${packageInfo?.versionName} (${packageInfo?.versionCode()}) " +
+        "${Build.MANUFACTURER} ${Build.MODEL}",
       color = SnitcherTheme.colors.textHighEmphasis,
       fontSize = 18.sp,
     )

@@ -18,6 +18,8 @@ package com.skydoves.snitcher.extensions
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.pm.PackageInfo
+import android.os.Build
 import android.widget.Toast
 
 @JvmSynthetic
@@ -33,4 +35,22 @@ internal fun Context.findActivity(): Activity? {
     context = context.baseContext
   }
   return null
+}
+
+@JvmSynthetic
+internal fun Context.packageInfo(): PackageInfo? {
+  return try {
+    packageManager.getPackageInfo(packageName, 0)
+  } catch (e: Exception) {
+    null
+  }
+}
+
+@JvmSynthetic
+internal fun PackageInfo?.versionCode(): Long? {
+  return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+    this?.longVersionCode
+  } else {
+    this?.versionCode?.toLong()
+  }
 }
