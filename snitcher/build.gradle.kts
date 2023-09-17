@@ -76,6 +76,11 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
   )
 }
 
+tasks.withType(JavaCompile::class.java).configureEach {
+  this.targetCompatibility = libs.versions.jvmTarget.get()
+  this.sourceCompatibility = libs.versions.jvmTarget.get()
+}
+
 baselineProfile {
   filter {
     include("com.skydoves.snitcher.**")
