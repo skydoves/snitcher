@@ -1,6 +1,6 @@
 # Snitcher Theme
 
-The pre-built screens are styled by a `SnitcherThemeConfig`. Give one to `Snitcher.install`, and the built-in `ExceptionTraceActivity`, as well as every screen you wrap in `SnitcherTheme`, will be drawn with it:
+The pre-built screens are styled by a `SnitcherThemeConfig`. Give one to the platform installer, and the built-in `ExceptionTraceActivity`, as well as every screen you wrap in `SnitcherTheme`, will be drawn with it:
 
 ```kotlin
 Snitcher.install(
@@ -58,13 +58,26 @@ SnitcherTheme(
 }
 ```
 
-If you wish to personalize the text strings within the pre-built UIs, you can override the following string values within your `strings.xml` file:
+The texts of the pre-built screens are plain strings rather than platform resources, so they are shared across platforms. Give a `SnitcherStrings` to the installer to translate or reword them:
 
-```xml
-<string name="snitcher_release_crash_screen_title">Oops, Restore the previous screen?</string>
-<string name="snitcher_release_crash_screen_description">The app crashed unexpectedly. We apologize for the inconvenience. Would you like to return to where you left off?</string>
-<string name="snitcher_release_crash_screen_restore">Restore</string>
-<string name="snitcher_debug_crash_screen_restore">Restore App</string>
-<string name="snitcher_debug_crash_screen_debug_on_ide">Debug on IDE</string>
-<string name="snitcher_debug_crash_screen_stacktrace">Stacktrace</string>
+```kotlin
+Snitcher.install(
+  application = this,
+  strings = SnitcherStrings(
+    restoreTitle = "Oops, Restore the previous screen?",
+    restoreDescription = "The app crashed unexpectedly. Would you like to return to where you left off?",
+    restoreButton = "Restore",
+    traceRestoreButton = "Restore App",
+    traceDebugButton = "Debug on IDE",
+    traceStacktrace = "Stacktrace",
+    traceCopied = "Copied!",
+  ),
+)
+```
+
+Both can also be replaced at any time, which restyles the screens right away:
+
+```kotlin
+Snitcher.theme = Snitcher.theme.copy(darkColors = SnitcherColor.defaultDarkColors())
+Snitcher.strings = SnitcherStrings(traceStacktrace = "Stack trace")
 ```

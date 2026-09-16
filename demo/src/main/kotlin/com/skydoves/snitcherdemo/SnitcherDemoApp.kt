@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.skydoves.snitcher.Snitcher
+import com.skydoves.snitcher.install
 import com.skydoves.snitcher.ui.theme.SnitcherColor
 import com.skydoves.snitcher.ui.theme.SnitcherShapes
 import com.skydoves.snitcher.ui.theme.SnitcherThemeConfig

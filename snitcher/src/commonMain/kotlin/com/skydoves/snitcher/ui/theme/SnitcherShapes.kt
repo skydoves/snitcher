@@ -1,0 +1,45 @@
+/*
+ * Designed and developed by 2023 skydoves (Jaewoong Eum)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.skydoves.snitcher.ui.theme
+
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.unit.dp
+import com.skydoves.snitcher.ui.ExceptionTraceScreen
+
+/**
+ * A collection of shapes, which are contained by [SnitcherTheme] to implement
+ * [ExceptionTraceScreen].
+ *
+ * @property button The shape of the buttons.
+ * @property stacktrace The shape of the stack trace container.
+ */
+@Immutable
+public data class SnitcherShapes(
+  val button: Shape = RoundedCornerShape(8.dp),
+  val stacktrace: Shape = RoundedCornerShape(6.dp),
+) {
+  public companion object {
+    /**
+     * Provides the default shapes of the Snitcher screens, which is also the entry point for
+     * Swift, where Kotlin default arguments are not available.
+     *
+     * @return A [SnitcherShapes] instance holding our shapes.
+     */
+    public fun defaultShapes(): SnitcherShapes = SnitcherShapes()
+  }
+}

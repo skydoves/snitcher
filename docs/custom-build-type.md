@@ -10,11 +10,11 @@ Snitcher.install(
   } else {
     RestoreActivity::class
   },
-  exceptionHandler = {
+  exceptionHandler = { exception ->
     if (!BuildConfig.DEBUG) {
       Firebase.crashlytics.log(exception.stackTrace)
     }
-  }
+  },
 )
 ```
 
@@ -23,7 +23,7 @@ Alternatively, you can create a single trace Activity and manage the different b
 ```kotlin
 Snitcher.install(
   application = this,
-  launcher = MyExceptionTraceActivity::class,
+  traceActivity = MyExceptionTraceActivity::class,
 )
 
 class MyExceptionTraceActivity : ComponentActivity() {
@@ -36,12 +36,9 @@ class MyExceptionTraceActivity : ComponentActivity() {
       val launcher by Snitcher.launcher.collectAsState()
 
       SnitcherTheme {
-        if (exception != null) {
+        exception?.let {
           if (Snitcher.isDebuggable) {
-            ExceptionTraceScreen(
-              launcher = launcher,
-              snitcherException = exception!!,
-            )
+            ExceptionTraceScreen(launcher = launcher, snitcherException = it)
           } else {
             AppRestoreScreen(launcher = launcher)
           }
@@ -52,4 +49,8 @@ class MyExceptionTraceActivity : ComponentActivity() {
 }
 ```
 
-As demonstrated in the above example, you have the flexibility to create your own trace or restore Activities and install them according to your various build types.
+`Snitcher.isDebuggable` is taken from the application's debuggable flag on Android, from the binary kind on iOS, and is true on the desktop. Assign it yourself to decide which screen is displayed:
+
+```kotlin
+Snitcher.isDebuggable = BuildConfig.DEBUG
+```

@@ -1,36 +1,55 @@
 # Exception Trace Screen
 
-Snitcher provides ready-to-use exception tracing screens (such as `ExceptionTraceActivity`, built with the `ExceptionTraceScreen` Composable), giving you the flexibility to extensively tailor these screens according to your preferences, and even design your own distinct tracing interfaces. 
+Snitcher provides ready-to-use screens, `ExceptionTraceScreen` and `AppRestoreScreen`, which are Compose Multiplatform composables and render the same way on every platform. Each platform also gives you a host for them, and you are free to replace any of it.
+
+## The screens
+
+```kotlin
+@Composable
+public fun ExceptionTraceScreen(
+  snitcherException: SnitcherException,
+  modifier: Modifier = Modifier,
+  onRestore: (() -> Unit)? = null,
+  onDebug: (() -> Unit)? = null,
+)
+
+@Composable
+public fun AppRestoreScreen(
+  modifier: Modifier = Modifier,
+  onRestore: (() -> Unit)? = null,
+)
+```
+
+A button is hidden when its callback is null, which is how the screens adapt to what a platform supports. iOS cannot restore a throwable, for instance, so it never shows the debug button.
+
+## Android
+
+The bundled `ExceptionTraceActivity` is launched after a crash. Replace it with your own by giving the `traceActivity` parameter:
 
 ```kotlin
 Snitcher.install(
   application = this,
-  traceActivity = ExceptionTraceActivity::class
+  traceActivity = MyExceptionTraceActivity::class,
 )
 ```
-
-If you don't specify the `traceActivity` parameter, the default value will be `ExceptionTraceActivity`. You can tailor the launched activity by modifying the `traceActivity` parameter to match your preferred choice. The example below demonstrates the construction of a customized trace Activity:
 
 ```kotlin
 class MyExceptionTraceActivity : ComponentActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
 
     setContent {
       val exception by Snitcher.exception.collectAsState()
       val launcher by Snitcher.launcher.collectAsState()
 
       SnitcherTheme {
-        if (exception != null) {
+        exception?.let {
           if (BuildConfig.DEBUG) {
-            // implement your own exception trace screen
-            ExceptionTraceScreen(
-              launcher = launcher,
-              snitcherException = exception!!,
-            )
+            // the android overload wires the restore and debug actions for you
+            ExceptionTraceScreen(launcher = launcher, snitcherException = it)
           } else {
-            // implement your own app restore screen
             AppRestoreScreen(launcher = launcher)
           }
         }
@@ -40,11 +59,40 @@ class MyExceptionTraceActivity : ComponentActivity() {
 }
 ```
 
-As demonstrated in the example above, Snitcher provides access to the `SnitcherException` and the package name of the launcher Activity. This information can be utilized to construct highly customized trace screens that align with your specific needs. Snitcher conveniently provides this information through [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/)s, allowing you to observe these values without the need for cumbersome intent handling when initiating the trace Activity.
+## Desktop
+
+`SnitcherTraceWindow` opens a window whenever there is a crash. Build your own window instead when you want a different shell:
 
 ```kotlin
-val exception: SnitcherException? by Snitcher.exception.collectAsState()
-val launcher: String by Snitcher.launcher.collectAsState()
+application {
+  val exception by Snitcher.exception.collectAsState()
+
+  exception?.let {
+    Window(onCloseRequest = { Snitcher.clear() }, title = "Crash") {
+      SnitcherTheme {
+        ExceptionTraceScreen(
+          snitcherException = it,
+          onRestore = { Snitcher.clear() },
+          onDebug = { Snitcher.debug(it) },
+        )
+      }
+    }
+  }
+}
 ```
 
-> **Note**: Following any app crashes, you can readily observe the exception details across various components at any time and from any location.
+## iOS
+
+`snitcherViewController(onRestore:)` wraps the screens in a `UIViewController`. Build your own controller when you want to embed the screen in your own navigation:
+
+```kotlin
+fun myCrashViewController(): UIViewController = ComposeUIViewController {
+  val exception by Snitcher.exception.collectAsState()
+
+  SnitcherTheme {
+    exception?.let {
+      ExceptionTraceScreen(snitcherException = it, onRestore = { Snitcher.clear() })
+    }
+  }
+}
+```

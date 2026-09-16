@@ -10,6 +10,9 @@ docs_dir: docs
 # Navigation
 nav:
   - 'Overview': index.md
+  - 'Android': android.md
+  - 'Desktop': desktop.md
+  - 'iOS': ios.md
   - 'Trace Global Exception': trace-global-exception.md
   - 'Exception Screen': custom-trace-screen.md
   - 'Launcher Activity': custom-launcher-activity.md

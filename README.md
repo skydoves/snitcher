@@ -9,17 +9,23 @@
 </p><br>
 
 <p align="center">
-🦉 Snitcher captures global crashes, enabling easy redirection to the exception tracing screen for swift recovery.
+🦉 Snitcher captures global crashes on Android, desktop, and iOS, and redirects to the exception tracing screen for swift recovery.
 </p><br>
 
 <p align="center">
-<img src="art/demo_release.png" width="330"/>
-<img src="art/demo_debug.png" width="330"/>
+<img src="art/android_trace.png" width="270"/>
+<img src="art/ios_trace.png" width="270"/>
+</p>
+
+<p align="center">
+<img src="art/desktop_trace.png" width="546"/>
 </p>
 
 ## What is Snitcher?
 
 Snitcher offers versatile advantages such as aiding in debugging crashes during development, facilitating easy sharing of exceptions by your QA team, enhancing user experiences with recovery screens instead of abrupt closures, and enabling global exception tracing and customized launch behaviors tailored to your specific needs. You have the complete freedom to customize the crash tracing screens according to your build types and preferences, reporting to the Firebase's Crashlytics with displaying the exception screen, including options like launching a designated Activity, sending messages to your BroadcastReceiver, or any other desired actions.
+
+The screens, the theme, and the captured model are shared across every platform with Compose Multiplatform, and each platform installs the crash capture that its runtime allows.
 
 ## Documentation
 
@@ -31,17 +37,44 @@ For comprehensive details about Snitcher, please refer to the **[complete docume
 
 ### Gradle
 
-Add the dependency below to your **module**'s `build.gradle` file:
+Add the dependency below to your **module**'s `build.gradle.kts` file:
 
-```gradle
+```kotlin
 dependencies {
-    implementation "com.github.skydoves:snitcher:1.0.3"
+    implementation("com.github.skydoves:snitcher:$version")
 }
 ```
 
+In a multiplatform module, add it to the source set that needs it:
+
+```kotlin
+kotlin {
+  sourceSets {
+    commonMain.dependencies {
+      implementation("com.github.skydoves:snitcher:$version")
+    }
+  }
+}
+```
+
+## What each platform can capture
+
+| | Android | Desktop (JVM) | iOS |
+| --- | --- | --- | --- |
+| Uncaught JVM exceptions | yes | yes | not applicable |
+| Unhandled Kotlin exceptions | yes | yes | yes |
+| Uncaught `NSException` | not applicable | not applicable | yes |
+| Unix signals, such as a Swift trap or a memory error | no | no | no |
+| When the screen is shown | right after the crash, in a trace activity | right after the crash, in a window | on the next launch |
+| Can restart the app | yes | no, the process keeps running | no, iOS does not let an app relaunch itself |
+
+On iOS an unhandled Kotlin exception that reaches the Objective-C boundary always terminates the process, so the crash is persisted and displayed on the next launch. An exception that is only unhandled inside a coroutine does not terminate the process, and is published right away.
+
 ## Usage
 
-Installing Snitcher is a breeze; it hooks into global exceptions, replacing application closure with informative exception tracing screens. You can seamlessly install Snitcher using the following example:
+### Android
+
+Install Snitcher in your `Application` class. Snitcher becomes the default uncaught exception handler, persists the crash, and launches the exception tracing activity.
 
 ```kotlin
 class App : Application() {
@@ -54,91 +87,92 @@ class App : Application() {
 }
 ```
 
-It's recommended to install Snitcher on your **Application** class or your on initialization solution, such as [App Startup](https://developer.android.com/topic/libraries/app-startup).
+### Desktop
 
-### Tracing Global Exceptions
-
-You can trace the global exceptions by providing `exceptionHandler` lambda parameter. This can be highly beneficial if you intend to gather and report exceptions to other platforms, such as [Firebase Crashlyrics](https://firebase.google.com/docs/crashlytics).
+Install Snitcher before your `application { }` block, and place `SnitcherTraceWindow` next to your own window. The JVM keeps running after an uncaught exception, so the crash window opens right away.
 
 ```kotlin
-Snitcher.install(
-  application = this,
-  exceptionHandler = { exception: SnitcherException ->
-    Firebase.crashlytics.log(exception.stackTrace) // or exception.message, 
-  }
-)
-```
+fun main() {
+  Snitcher.install()
 
-The `exceptionHandler` gives you `SnitcherException`, encompassing the exception message, stack traces, package name, and thread information. Additionally, it enables you to recover the original `Throwable` instance with the `SnitcherException.throwable` extension.
-
-```kotlin
-Snitcher.install(
-  application = this,
-  exceptionHandler = { exception: SnitcherException ->
-    val message: String = exception.message
-    val stackTrace: String = exception.stackTrace
-    val throwable: Throwable = exception.throwable
-    val threadName: String = exception.threadName
-
-    // do somethings
-  }
-)
-```
-
-### Custom Exception Trace Screen
-
-Snitcher provides ready-to-use exception tracing screens (such as `ExceptionTraceActivity`, built with the `ExceptionTraceScreen` Composable), giving you the flexibility to extensively tailor these screens according to your preferences, and even design your own distinct tracing interfaces. 
-
-```kotlin
-Snitcher.install(
-  application = this,
-  traceActivity = ExceptionTraceActivity::class
-)
-```
-
-If you don't specify the `traceActivity` parameter, the default value will be `ExceptionTraceActivity`. You can tailor the launched activity by modifying the `traceActivity` parameter to match your preferred choice. The example below demonstrates the construction of a customized trace Activity:
-
-```kotlin
-class MyExceptionTraceActivity : ComponentActivity() {
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    setContent {
-      val exception by Snitcher.exception.collectAsState()
-      val launcher by Snitcher.launcher.collectAsState()
-
-      SnitcherTheme {
-        if (exception != null) {
-          if (BuildConfig.DEBUG) {
-            // implement your own exception trace screen
-            ExceptionTraceScreen(
-              launcher = launcher,
-              snitcherException = exception!!,
-            )
-          } else {
-            // implement your own app restore screen
-            AppRestoreScreen(launcher = launcher)
-          }
-        }
-      }
+  application {
+    Window(onCloseRequest = ::exitApplication) {
+      App()
     }
+
+    SnitcherTraceWindow()
   }
 }
 ```
 
-As demonstrated in the example above, Snitcher provides access to the `SnitcherException` and the package name of the launcher Activity. This information can be utilized to construct highly customized trace screens that align with your specific needs. Snitcher conveniently provides this information through [StateFlow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-state-flow/)s, allowing you to observe these values without the need for cumbersome intent handling when initiating the trace Activity.
+### iOS
 
-```kotlin
-val exception: SnitcherException? by Snitcher.exception.collectAsState()
-val launcher: String by Snitcher.launcher.collectAsState()
+Install Snitcher when your app starts. The runtime terminates the process after a crash, so present the screen on the launch that follows it.
+
+```swift
+import Snitcher
+
+@main
+struct SampleApp: App {
+
+  init() {
+    Snitcher.shared.install()
+  }
+
+  var body: some Scene {
+    WindowGroup { ContentView() }
+  }
+}
 ```
 
-> **Note**: Following any app crashes, you can readily observe the exception details across various components at any time and from any location.
+```swift
+struct ContentView: View {
 
-### Custom Launcher (Restore) Activity
+  @State private var showsCrash = Snitcher.shared.exception.value != nil
 
-Furthermore, you can customize the launcher (restore activity), specifying which Activity should be executed upon restoration within the trace activity. If you don't specify a `launcher` activity, the most recent Activity that encountered a crash will automatically be launched when users press the 'restore' button. However, if you wish to launch a particular Activity instead of the most recent one, you can accomplish this by providing the launcher parameter:
+  var body: some View {
+    MyContent()
+      .fullScreenCover(isPresented: $showsCrash) {
+        SnitcherScreen {
+          Snitcher.shared.clear()
+          showsCrash = false
+        }
+        .ignoresSafeArea()
+      }
+  }
+}
+
+struct SnitcherScreen: UIViewControllerRepresentable {
+  let onRestore: () -> Void
+
+  func makeUIViewController(context: Context) -> UIViewController {
+    SnitcherViewControllerKt.snitcherViewController(onRestore: onRestore)
+  }
+
+  func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+}
+```
+
+The [demo-ios](demo-ios) module is a complete sample, and [demo-desktop](demo-desktop) and [demo](demo) cover the other two platforms.
+
+### Tracing global exceptions
+
+Every installer takes an `exceptionHandler`, which is useful to report a crash to another platform, such as [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics).
+
+```kotlin
+Snitcher.install(
+  application = this,
+  exceptionHandler = { exception: SnitcherException ->
+    Firebase.crashlytics.log(exception.stackTrace)
+  },
+)
+```
+
+`SnitcherException` carries the exception name, the message, the whole stack trace, and the thread information. On Android and on the desktop you can restore the original throwable with `SnitcherException.toThrowable()`.
+
+### Launcher (restore) Activity
+
+On Android you can decide which Activity is launched when the user restores the app. Without it, the most recent Activity before the crash is used.
 
 ```kotlin
 Snitcher.install(
@@ -149,7 +183,7 @@ Snitcher.install(
 
 ### Custom Snitcher Theme
 
-The pre-built screens are styled by a `SnitcherThemeConfig`. Give one to `Snitcher.install`, and the built-in `ExceptionTraceActivity`, as well as every screen you wrap in `SnitcherTheme`, will be drawn with it:
+The pre-built screens are styled by a `SnitcherThemeConfig`. Give one to the installer, and the pre-built screens, as well as every screen you wrap in `SnitcherTheme`, will be drawn with it:
 
 ```kotlin
 Snitcher.install(
@@ -165,138 +199,44 @@ Snitcher.install(
 )
 ```
 
-`lightColors` and `darkColors` are picked by the system dark mode. Every field has a default, so you only need to declare what you want to change.
+Colors left unspecified follow the color they belong to, so `copy(primary = Color.Red)` restyles the title, the labels, the buttons, and the stack trace border together.
 
-**SnitcherColor**
+### Custom texts
 
-| Property | Where it is used |
-|---|---|
-| `primary` | The title, the section labels, and the button background |
-| `onPrimary` | The content that is drawn on the buttons |
-| `background` | The screen background, which is also drawn behind the system bars |
-| `textHighEmphasis` | The exception message, the stack trace, and the restore screen texts |
-| `textLowEmphasis` | The package and device information |
-| `outline` | The border of the stack trace container |
-
-**SnitcherTypography**
-
-`title`, `message`, `deviceInfo`, `sectionLabel`, `stacktrace`, and `button` are plain `TextStyle`s, so fonts, sizes, and weights are all yours.
-
-**SnitcherShapes**
-
-`button` and `stacktrace` are plain `Shape`s.
-
-You can also swap the theme at any time, which restyles the screens right away:
+The texts of the pre-built screens are plain strings, so they travel across platforms and you can translate them:
 
 ```kotlin
-Snitcher.theme = Snitcher.theme.copy(darkColors = SnitcherColor.defaultDarkColors())
+Snitcher.install(
+  application = this,
+  strings = SnitcherStrings(
+    traceRestoreButton = "다시 시작",
+    traceStacktrace = "스택트레이스",
+  ),
+)
 ```
 
-If you build your own trace screens, wrap them in `SnitcherTheme`. Its defaults come from the installed configuration, so your screens and the pre-built ones stay in sync, and you can still override any of them for a single screen:
+### Custom trace screens
+
+`ExceptionTraceScreen` and `AppRestoreScreen` are plain composables, so you can build your own screen around the state that Snitcher publishes:
 
 ```kotlin
-SnitcherTheme(
-  colors = SnitcherTheme.colors.copy(primary = Color.Blue),
-) {
-  if (exception != null) {
+val exception by Snitcher.exception.collectAsState()
+
+SnitcherTheme {
+  exception?.let {
     ExceptionTraceScreen(
-      launcher = launcher,
-      snitcherException = exception!!,
+      snitcherException = it,
+      onRestore = { /* restore your app */ },
     )
   }
 }
 ```
 
-If you wish to personalize the text strings within the pre-built UIs, you can override the following string values within your `strings.xml` file:
-
-```xml
-<string name="snitcher_release_crash_screen_title">Oops, Restore the previous screen?</string>
-<string name="snitcher_release_crash_screen_description">The app crashed unexpectedly. We apologize for the inconvenience. Would you like to return to where you left off?</string>
-<string name="snitcher_release_crash_screen_restore">Restore</string>
-<string name="snitcher_debug_crash_screen_restore">Restore App</string>
-<string name="snitcher_debug_crash_screen_debug_on_ide">Debug on IDE</string>
-<string name="snitcher_debug_crash_screen_stacktrace">Stacktrace</string>
-```
-
-### Custom Build Types
-
-If you intend to launch distinct trace activities and implement different behaviors or flavors, you can install Snitcher based on specific build types, as shown in the example below:
-
-```kotlin
-Snitcher.install(
-  application = this,
-  traceActivity = if (BuildConfig.DEBUG) {
-    MyExceptionTraceActivity::class
-  } else {
-    RestoreActivity::class
-  },
-  exceptionHandler = {
-    if (!BuildConfig.DEBUG) {
-      Firebase.crashlytics.log(exception.stackTrace)
-    }
-  }
-)
-```
-
-Alternatively, you can create a single trace Activity and manage the different build types within the activity itself, as demonstrated in the example below:
-
-```kotlin
-Snitcher.install(
-  application = this,
-  launcher = MyExceptionTraceActivity::class,
-)
-
-class MyExceptionTraceActivity : ComponentActivity() {
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    setContent {
-      val exception by Snitcher.exception.collectAsState()
-      val launcher by Snitcher.launcher.collectAsState()
-
-      SnitcherTheme {
-        if (exception != null) {
-          if (Snitcher.isDebuggable) {
-            ExceptionTraceScreen(
-              launcher = launcher,
-              snitcherException = exception!!,
-            )
-          } else {
-            AppRestoreScreen(launcher = launcher)
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-As demonstrated in the above example, you have the flexibility to create your own trace or restore Activities and install them according to your various build types.
-
-### Trace Strategy
-
-You can globally trace exceptions by providing the `exceptionHandler` lambda parameter during Snitcher installation. However, there might be instances where you don't wish to launch the trace Activity but rather perform other actions, such as reporting crashes or sending messages to a `BroadcastReceiver`. In such cases, you can modify the trace strategy as shown in the example below:
-
-```kotlin
-Snitcher.install(
-  application = this,
-  traceStrategy = TraceStrategy.REPLACE,
-  exceptionHandler = {
-    // do something
-  },
-)
-```
-
-In this scenario, only the `exceptionHandler` lambda function will be executed without triggering the launch of any trace Activity. If the `traceStrategy` parameter is not specified, the default behavior is set to `TraceStrategy.CO_WORK`, which involves executing the `exceptionHandler` lambda and initiating the trace activity when an app crash occurs.
-
 ## Find this repository useful? :heart:
-
-Support it by joining __[stargazers](https://github.com/skydoves/cloudy/stargazers)__ for this repository. :star: <br>
+Support it by joining __[stargazers](https://github.com/skydoves/snitcher/stargazers)__ for this repository. :star: <br>
 Also, __[follow me](https://github.com/skydoves)__ on GitHub for my next creations! 🤩
 
 # License
-
 ```xml
 Designed and developed by 2023 skydoves (Jaewoong Eum)
 
@@ -304,7 +244,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-   http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

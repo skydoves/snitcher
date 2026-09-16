@@ -1,28 +1,51 @@
 # Tracing Global Exceptions
 
-You can trace the global exceptions by providing `exceptionHandler` lambda parameter. This can be highly beneficial if you intend to gather and report exceptions to other platforms, such as [Firebase Crashlyrics](https://firebase.google.com/docs/crashlytics).
+Every platform installer takes an `exceptionHandler` lambda, which runs with the captured crash before the process goes down. It is useful to report exceptions to another platform, such as [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics).
 
 ```kotlin
 Snitcher.install(
   application = this,
   exceptionHandler = { exception: SnitcherException ->
-    Firebase.crashlytics.log(exception.stackTrace) // or exception.message, 
-  }
+    Firebase.crashlytics.log(exception.stackTrace)
+  },
 )
 ```
 
-The `exceptionHandler` gives you `SnitcherException`, encompassing the exception message, stack traces, package name, and thread information. Additionally, it enables you to recover the original `Throwable` instance with the `SnitcherException.throwable` extension.
+The handler gives you a `SnitcherException`, which carries the exception name, the message, the whole stack trace, and the thread information.
 
 ```kotlin
 Snitcher.install(
   application = this,
   exceptionHandler = { exception: SnitcherException ->
+    val name: String = exception.packageName
     val message: String = exception.message
     val stackTrace: String = exception.stackTrace
-    val throwable: Throwable = exception.throwable
     val threadName: String = exception.threadName
 
-    // do somethings
-  }
+    // do something
+  },
 )
+```
+
+On Android and on the desktop the original throwable can be restored, which is handy for reporters that take a `Throwable`:
+
+```kotlin
+val throwable: Throwable = exception.toThrowable()
+```
+
+Kotlin/Native does not expose structured stack trace frames, so `toThrowable()` is only available on Android and on the desktop, and `SnitcherException.stackTraceElement` is empty on iOS. The whole trace is always available as a string.
+
+## Observing the crash anywhere
+
+Snitcher publishes the most recent crash as a `StateFlow`, so any part of your app can observe it, including on the launch that follows a crash.
+
+```kotlin
+val exception: SnitcherException? by Snitcher.exception.collectAsState()
+val launcher: String by Snitcher.launcher.collectAsState()
+```
+
+Once you have handled it, clear it so that it is not displayed again:
+
+```kotlin
+Snitcher.clear()
 ```

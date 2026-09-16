@@ -1,0 +1,57 @@
+/*
+ * Designed and developed by 2023 skydoves (Jaewoong Eum)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.skydoves.snitcher.ui.theme
+
+import androidx.compose.runtime.Immutable
+import com.skydoves.snitcher.Snitcher
+
+/**
+ * A theme configuration for the pre-built Snitcher screens. Give an instance of this class to the
+ * `theme` parameter of the platform installer, and the pre-built screens, as well as every screen
+ * wrapped in [SnitcherTheme], will be styled with it.
+ *
+ * ```kotlin
+ * Snitcher.install(
+ *   application = this,
+ *   theme = SnitcherThemeConfig(
+ *     lightColors = SnitcherColor.defaultColors().copy(primary = Color(0xFFEF5350)),
+ *     shapes = SnitcherShapes(button = CircleShape),
+ *   ),
+ * )
+ * ```
+ *
+ * @property lightColors The colors that are used when the system is in light mode.
+ * @property darkColors The colors that are used when the system is in dark mode.
+ * @property typography The text styles of the Snitcher screens.
+ * @property shapes The shapes of the Snitcher screens.
+ */
+@Immutable
+public data class SnitcherThemeConfig(
+  val lightColors: SnitcherColor = SnitcherColor.defaultColors(),
+  val darkColors: SnitcherColor = SnitcherColor.defaultDarkColors(),
+  val typography: SnitcherTypography = SnitcherTypography.defaultTypography(),
+  val shapes: SnitcherShapes = SnitcherShapes.defaultShapes(),
+) {
+  public companion object {
+    /**
+     * Provides the default theme configuration, which is also the entry point for Swift, where
+     * Kotlin default arguments are not available.
+     *
+     * @return A [SnitcherThemeConfig] instance holding our defaults.
+     */
+    public fun defaultThemeConfig(): SnitcherThemeConfig = SnitcherThemeConfig()
+  }
+}

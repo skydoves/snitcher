@@ -1,0 +1,267 @@
+public final class com/skydoves/snitcher/Snitcher {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/skydoves/snitcher/Snitcher;
+	public final fun clear ()V
+	public final fun getException ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun getLauncher ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun getPlatformInfo ()Ljava/lang/String;
+	public final fun getStrings ()Lcom/skydoves/snitcher/SnitcherStrings;
+	public final fun getTheme ()Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;
+	public final fun isDebuggable ()Z
+	public final fun isInstalled ()Z
+	public final fun setDebuggable (Z)V
+	public final fun setPlatformInfo (Ljava/lang/String;)V
+	public final fun setStrings (Lcom/skydoves/snitcher/SnitcherStrings;)V
+	public final fun setTheme (Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;)V
+}
+
+public final class com/skydoves/snitcher/SnitcherStrings {
+	public static final field $stable I
+	public static final field Companion Lcom/skydoves/snitcher/SnitcherStrings$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/skydoves/snitcher/SnitcherStrings;
+	public static synthetic fun copy$default (Lcom/skydoves/snitcher/SnitcherStrings;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/skydoves/snitcher/SnitcherStrings;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRestoreButton ()Ljava/lang/String;
+	public final fun getRestoreDescription ()Ljava/lang/String;
+	public final fun getRestoreTitle ()Ljava/lang/String;
+	public final fun getTraceCopied ()Ljava/lang/String;
+	public final fun getTraceDebugButton ()Ljava/lang/String;
+	public final fun getTraceRestoreButton ()Ljava/lang/String;
+	public final fun getTraceStacktrace ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/skydoves/snitcher/SnitcherStrings$Companion {
+	public final fun defaultStrings ()Lcom/skydoves/snitcher/SnitcherStrings;
+}
+
+public final class com/skydoves/snitcher/Snitcher_desktopKt {
+	public static final fun debug (Lcom/skydoves/snitcher/Snitcher;Lcom/skydoves/snitcher/model/SnitcherException;)V
+	public static final fun install (Lcom/skydoves/snitcher/Snitcher;Ljava/lang/String;Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;Lcom/skydoves/snitcher/SnitcherStrings;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun install$default (Lcom/skydoves/snitcher/Snitcher;Ljava/lang/String;Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;Lcom/skydoves/snitcher/SnitcherStrings;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public final class com/skydoves/snitcher/TraceStrategy : java/lang/Enum {
+	public static final field CO_WORK Lcom/skydoves/snitcher/TraceStrategy;
+	public static final field REPLACE Lcom/skydoves/snitcher/TraceStrategy;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/skydoves/snitcher/TraceStrategy;
+	public static fun values ()[Lcom/skydoves/snitcher/TraceStrategy;
+}
+
+public final class com/skydoves/snitcher/model/SnitcherException {
+	public static final field $stable I
+	public static final field Companion Lcom/skydoves/snitcher/model/SnitcherException$Companion;
+	public fun <init> (JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public synthetic fun <init> (JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/util/List;
+	public final fun copy (JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lcom/skydoves/snitcher/model/SnitcherException;
+	public static synthetic fun copy$default (Lcom/skydoves/snitcher/model/SnitcherException;JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lcom/skydoves/snitcher/model/SnitcherException;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMessage ()Ljava/lang/String;
+	public final fun getPackageName ()Ljava/lang/String;
+	public final fun getStackTrace ()Ljava/lang/String;
+	public final fun getStackTraceElement ()Ljava/util/List;
+	public final fun getThreadId ()J
+	public final fun getThreadName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/skydoves/snitcher/model/SnitcherException$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/skydoves/snitcher/model/SnitcherException$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/skydoves/snitcher/model/SnitcherException;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/skydoves/snitcher/model/SnitcherException;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/skydoves/snitcher/model/SnitcherException$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/skydoves/snitcher/model/SnitcherExceptionsKt {
+	public static final fun toThrowable (Lcom/skydoves/snitcher/model/SnitcherException;)Ljava/lang/Throwable;
+}
+
+public final class com/skydoves/snitcher/model/SnitcherStackTraceElement {
+	public static final field $stable I
+	public static final field Companion Lcom/skydoves/snitcher/model/SnitcherStackTraceElement$Companion;
+	public fun <init> (Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()I
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;
+	public static synthetic fun copy$default (Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClassName ()Ljava/lang/String;
+	public final fun getFileName ()Ljava/lang/String;
+	public final fun getLineNumber ()I
+	public final fun getMethodName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class com/skydoves/snitcher/model/SnitcherStackTraceElement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/skydoves/snitcher/model/SnitcherStackTraceElement$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/skydoves/snitcher/model/SnitcherStackTraceElement$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class com/skydoves/snitcher/ui/AppRestoreScreenKt {
+	public static final fun AppRestoreScreen (Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/skydoves/snitcher/ui/ExceptionTraceScreenKt {
+	public static final fun ExceptionTraceScreen (Lcom/skydoves/snitcher/model/SnitcherException;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/skydoves/snitcher/ui/SnitcherTraceWindowKt {
+	public static final fun SnitcherTraceWindow (Landroidx/compose/ui/window/ApplicationScope;Lkotlin/jvm/functions/Function0;Ljava/lang/String;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherColor {
+	public static final field $stable I
+	public static final field Companion Lcom/skydoves/snitcher/ui/theme/SnitcherColor$Companion;
+	public synthetic fun <init> (JJJJJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-0d7_KjU ()J
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun component4-0d7_KjU ()J
+	public final fun component5-0d7_KjU ()J
+	public final fun component6-0d7_KjU ()J
+	public final fun copy-tNS2XkQ (JJJJJJ)Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public static synthetic fun copy-tNS2XkQ$default (Lcom/skydoves/snitcher/ui/theme/SnitcherColor;JJJJJJILjava/lang/Object;)Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackground-0d7_KjU ()J
+	public final fun getOnPrimary-0d7_KjU ()J
+	public final fun getOutline-0d7_KjU ()J
+	public final fun getPrimary-0d7_KjU ()J
+	public final fun getTextHighEmphasis-0d7_KjU ()J
+	public final fun getTextLowEmphasis-0d7_KjU ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherColor$Companion {
+	public final fun defaultColors ()Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public final fun defaultDarkColors ()Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherShapes {
+	public static final field $stable I
+	public static final field Companion Lcom/skydoves/snitcher/ui/theme/SnitcherShapes$Companion;
+	public fun <init> ()V
+	public fun <init> (Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;)V
+	public synthetic fun <init> (Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Landroidx/compose/ui/graphics/Shape;
+	public final fun component2 ()Landroidx/compose/ui/graphics/Shape;
+	public final fun copy (Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;)Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;
+	public static synthetic fun copy$default (Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;Landroidx/compose/ui/graphics/Shape;Landroidx/compose/ui/graphics/Shape;ILjava/lang/Object;)Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getButton ()Landroidx/compose/ui/graphics/Shape;
+	public final fun getStacktrace ()Landroidx/compose/ui/graphics/Shape;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherShapes$Companion {
+	public final fun defaultShapes ()Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherTheme {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/skydoves/snitcher/ui/theme/SnitcherTheme;
+	public final fun getColors (Landroidx/compose/runtime/Composer;I)Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public final fun getShapes (Landroidx/compose/runtime/Composer;I)Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;
+	public final fun getTypography (Landroidx/compose/runtime/Composer;I)Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherThemeConfig {
+	public static final field $stable I
+	public static final field Companion Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig$Companion;
+	public fun <init> ()V
+	public fun <init> (Lcom/skydoves/snitcher/ui/theme/SnitcherColor;Lcom/skydoves/snitcher/ui/theme/SnitcherColor;Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;)V
+	public synthetic fun <init> (Lcom/skydoves/snitcher/ui/theme/SnitcherColor;Lcom/skydoves/snitcher/ui/theme/SnitcherColor;Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public final fun component2 ()Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public final fun component3 ()Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;
+	public final fun component4 ()Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;
+	public final fun copy (Lcom/skydoves/snitcher/ui/theme/SnitcherColor;Lcom/skydoves/snitcher/ui/theme/SnitcherColor;Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;)Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;
+	public static synthetic fun copy$default (Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;Lcom/skydoves/snitcher/ui/theme/SnitcherColor;Lcom/skydoves/snitcher/ui/theme/SnitcherColor;Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;ILjava/lang/Object;)Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDarkColors ()Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public final fun getLightColors ()Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public final fun getShapes ()Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;
+	public final fun getTypography ()Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherThemeConfig$Companion {
+	public final fun defaultThemeConfig ()Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherThemeKt {
+	public static final fun SnitcherTheme (ZLcom/skydoves/snitcher/ui/theme/SnitcherColor;Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;Lcom/skydoves/snitcher/ui/theme/SnitcherShapes;Lkotlin/jvm/functions/Function2;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherTypography {
+	public static final field $stable I
+	public static final field Companion Lcom/skydoves/snitcher/ui/theme/SnitcherTypography$Companion;
+	public fun <init> (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;)V
+	public final fun component1 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun component2 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun component3 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun component4 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun component5 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun component6 ()Landroidx/compose/ui/text/TextStyle;
+	public final fun copy (Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;)Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;
+	public static synthetic fun copy$default (Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;Landroidx/compose/ui/text/TextStyle;ILjava/lang/Object;)Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getButton ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getDeviceInfo ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getMessage ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getSectionLabel ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getStacktrace ()Landroidx/compose/ui/text/TextStyle;
+	public final fun getTitle ()Landroidx/compose/ui/text/TextStyle;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/skydoves/snitcher/ui/theme/SnitcherTypography$Companion {
+	public final fun defaultTypography ()Lcom/skydoves/snitcher/ui/theme/SnitcherTypography;
+}
+
