@@ -31,9 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.skydoves.snitcher.R
 import com.skydoves.snitcher.extensions.findActivity
 import com.skydoves.snitcher.ui.theme.SnitcherStatusBarColor
@@ -62,15 +60,14 @@ private fun AppRestoreScreenContent(packageName: String) {
     Text(
       text = stringResource(id = R.string.snitcher_release_crash_screen_title),
       color = SnitcherTheme.colors.textHighEmphasis,
-      fontWeight = FontWeight.Bold,
-      fontSize = 34.sp,
+      style = SnitcherTheme.typography.title,
     )
 
     Text(
       modifier = Modifier.padding(vertical = 18.dp),
       text = stringResource(id = R.string.snitcher_release_crash_screen_description),
       color = SnitcherTheme.colors.textHighEmphasis,
-      fontSize = 18.sp,
+      style = SnitcherTheme.typography.message,
     )
 
     SnitcherPrimaryButton(

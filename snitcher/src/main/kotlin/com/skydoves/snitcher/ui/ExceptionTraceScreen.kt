@@ -32,7 +32,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -50,9 +49,7 @@ import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.skydoves.snitcher.R
 import com.skydoves.snitcher.extensions.findActivity
 import com.skydoves.snitcher.extensions.packageInfo
@@ -102,23 +99,22 @@ private fun ExceptionTraceScreenContent(
     Text(
       text = title,
       color = SnitcherTheme.colors.primary,
-      fontWeight = FontWeight.Bold,
-      fontSize = 34.sp,
+      style = SnitcherTheme.typography.title,
     )
 
     Text(
       modifier = Modifier.padding(vertical = 6.dp),
       text = snitcherException.message,
       color = SnitcherTheme.colors.textHighEmphasis,
-      fontSize = 18.sp,
+      style = SnitcherTheme.typography.message,
     )
 
     Text(
       modifier = Modifier.padding(vertical = 6.dp),
       text = "${packageInfo?.versionName} (${packageInfo?.versionCode()}) " +
         "${Build.MANUFACTURER} ${Build.MODEL}",
-      color = SnitcherTheme.colors.textHighEmphasis,
-      fontSize = 18.sp,
+      color = SnitcherTheme.colors.textLowEmphasis,
+      style = SnitcherTheme.typography.deviceInfo,
     )
 
     SnitcherPrimaryButton(
@@ -149,8 +145,7 @@ private fun ExceptionTraceScreenContent(
         modifier = Modifier.align(Alignment.CenterStart),
         text = stacktraceLabel,
         color = SnitcherTheme.colors.primary,
-        fontWeight = FontWeight.Bold,
-        fontSize = 16.sp,
+        style = SnitcherTheme.typography.sectionLabel,
       )
 
       Icon(
@@ -177,13 +172,13 @@ private fun ExceptionTraceScreenContent(
       modifier =
       Modifier
         .border(
-          border = BorderStroke(2.dp, SnitcherTheme.colors.primary),
-          shape = RoundedCornerShape(6.dp),
+          border = BorderStroke(2.dp, SnitcherTheme.colors.outline),
+          shape = SnitcherTheme.shapes.stacktrace,
         )
         .padding(12.dp),
       text = snitcherException.stackTrace,
       color = SnitcherTheme.colors.textHighEmphasis,
-      fontSize = 14.sp,
+      style = SnitcherTheme.typography.stacktrace,
     )
   }
 }
