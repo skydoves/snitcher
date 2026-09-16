@@ -54,6 +54,7 @@ internal object SnitcherInstaller {
       }
       Thread.setDefaultUncaughtExceptionHandler(snitcher)
       internalSnitcher.value = snitcher
+      isInstalled = true
     }
   }
 }

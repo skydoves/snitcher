@@ -8,10 +8,10 @@ jvmTarget = "11"
 androidxComposeBom = "2026.09.00"
 androidxComposeConstraintLayout = "1.1.2"
 androidxActivity = "1.13.0"
+androidxCore = "1.19.0"
 androidxTest = "1.7.0"
 androidxDataStore = "1.2.1"
 coroutines = "1.11.0"
-accompanist = "0.36.0"
 baselineProfiles = "1.4.1"
 uiAutomator = "2.4.0"
 spotless = "8.10.2"
@@ -37,6 +37,7 @@ androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "androidxComposeConstraintLayout" }
@@ -45,7 +46,6 @@ androidx-datastore-core = { group = "androidx.datastore", name = "datastore-pref
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
 kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinSerialization" }
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
-accompanist-system-ui = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 
 # unit test
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTest" }

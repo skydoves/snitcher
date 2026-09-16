@@ -73,7 +73,7 @@ internal fun SnitcherPrimaryButton(
 
           Text(
             text = text,
-            color = SnitcherTheme.colors.textHighEmphasis,
+            color = Color.White,
             fontSize = 16.sp,
           )
         }

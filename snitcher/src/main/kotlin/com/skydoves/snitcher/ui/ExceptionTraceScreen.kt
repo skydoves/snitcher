@@ -15,6 +15,7 @@
  */
 package com.skydoves.snitcher.ui
 
+import android.content.ClipData
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.os.Build
@@ -25,6 +26,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -40,14 +42,14 @@ import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.RestartAlt
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ClipboardManager
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,6 +61,7 @@ import com.skydoves.snitcher.extensions.versionCode
 import com.skydoves.snitcher.model.SnitcherException
 import com.skydoves.snitcher.ui.theme.SnitcherStatusBarColor
 import com.skydoves.snitcher.ui.theme.SnitcherTheme
+import kotlinx.coroutines.launch
 
 @Composable
 public fun ExceptionTraceScreen(launcher: String, snitcherException: SnitcherException) {
@@ -76,11 +79,16 @@ private fun ExceptionTraceScreenContent(
   snitcherException: SnitcherException,
 ) {
   val context = LocalContext.current
+  val scope = rememberCoroutineScope()
+  val clipboard = LocalClipboard.current
   val scrollState = rememberScrollState()
   val packageInfo = remember { context.packageInfo() }
+  val stacktraceLabel = stringResource(id = R.string.snitcher_debug_crash_screen_stacktrace)
+  val copiedMessage = stringResource(id = R.string.snitcher_debug_crash_screen_copied)
 
   Column(
     modifier = Modifier
+      .fillMaxSize()
       .background(SnitcherTheme.colors.background)
       .systemBarsPadding()
       .verticalScroll(scrollState)
@@ -139,20 +147,23 @@ private fun ExceptionTraceScreenContent(
     Box(modifier = Modifier.fillMaxWidth()) {
       Text(
         modifier = Modifier.align(Alignment.CenterStart),
-        text = stringResource(id = R.string.snitcher_debug_crash_screen_stacktrace),
+        text = stacktraceLabel,
         color = SnitcherTheme.colors.primary,
         fontWeight = FontWeight.Bold,
         fontSize = 16.sp,
       )
 
-      val clipboardManager: ClipboardManager = LocalClipboardManager.current
       Icon(
         modifier =
         Modifier
           .align(Alignment.CenterEnd)
           .clickable {
-            clipboardManager.setText(AnnotatedString(snitcherException.message))
-            context.toast("copied!")
+            scope.launch {
+              clipboard.setClipEntry(
+                ClipEntry(ClipData.newPlainText(stacktraceLabel, snitcherException.stackTrace)),
+              )
+              context.toast(copiedMessage)
+            }
           },
         imageVector = Icons.Filled.ContentCopy,
         tint = SnitcherTheme.colors.textHighEmphasis,

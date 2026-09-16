@@ -39,7 +39,7 @@ public data class SnitcherColor(
     public fun defaultColors(): SnitcherColor = SnitcherColor(
       primary = Color(0XFF28a9f1),
       background = Color.White,
-      textHighEmphasis = Color.White,
+      textHighEmphasis = Color(0XFF121212),
     )
 
     /**

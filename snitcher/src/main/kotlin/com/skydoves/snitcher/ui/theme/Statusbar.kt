@@ -15,23 +15,39 @@
  */
 package com.skydoves.snitcher.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.graphics.Color
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
+import com.skydoves.snitcher.extensions.findActivity
 
+/**
+ * Adjusts the system bar icons to the given [color], which is the color drawn behind the system
+ * bars by the Snitcher screens. The previous appearance is restored when this leaves composition.
+ */
 @Composable
 internal fun SnitcherStatusBarColor(color: Color = SnitcherTheme.colors.background) {
-  val systemUiController = rememberSystemUiController()
-  val useDarkIcons = !isSystemInDarkTheme()
+  val view = LocalView.current
+  if (view.isInEditMode) {
+    return
+  }
 
-  DisposableEffect(systemUiController, useDarkIcons) {
-    systemUiController.setStatusBarColor(
-      color = color,
-      darkIcons = useDarkIcons,
-    )
+  val darkIcons = color.luminance() > 0.5f
+  DisposableEffect(view, darkIcons) {
+    val window = view.context.findActivity()?.window
+      ?: return@DisposableEffect onDispose { }
+    val controller = WindowCompat.getInsetsController(window, view)
+    val statusBars = controller.isAppearanceLightStatusBars
+    val navigationBars = controller.isAppearanceLightNavigationBars
 
-    onDispose {}
+    controller.isAppearanceLightStatusBars = darkIcons
+    controller.isAppearanceLightNavigationBars = darkIcons
+
+    onDispose {
+      controller.isAppearanceLightStatusBars = statusBars
+      controller.isAppearanceLightNavigationBars = navigationBars
+    }
   }
 }

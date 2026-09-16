@@ -95,7 +95,7 @@ dependencies {
   implementation(libs.androidx.compose.runtime)
   implementation(libs.androidx.compose.material)
   implementation(libs.androidx.compose.material.iconsExtended)
-  implementation(libs.accompanist.system.ui)
+  implementation(libs.androidx.core.ktx)
 
   implementation(libs.androidx.datastore)
   implementation(libs.androidx.datastore.core)
