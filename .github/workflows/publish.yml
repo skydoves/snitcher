@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish:
-    name: Snapshot build and publish
+    name: Release build and publish
     # the apple targets can only be built on a mac.
     runs-on: macos-latest
     steps:
