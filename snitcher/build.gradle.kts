@@ -18,6 +18,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   id(libs.plugins.android.library.get().pluginId)
+  id(libs.plugins.kotlin.android.get().pluginId)
   id(libs.plugins.kotlin.serialization.get().pluginId)
   id(libs.plugins.compose.compiler.get().pluginId)
   id(libs.plugins.nexus.plugin.get().pluginId)
@@ -64,11 +65,6 @@ android {
 }
 
 kotlin {
-  @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
-  abiValidation {
-    referenceDumpDir.set(layout.projectDirectory.dir("api"))
-  }
-
   compilerOptions {
     jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvmTarget.get()))
     freeCompilerArgs.add("-Xexplicit-api=strict")
@@ -95,7 +91,7 @@ dependencies {
   implementation(libs.androidx.compose.runtime)
   implementation(libs.androidx.compose.material)
   implementation(libs.androidx.compose.material.iconsExtended)
-  implementation(libs.accompanist.system.ui)
+  implementation(libs.androidx.core.ktx)
 
   implementation(libs.androidx.datastore)
   implementation(libs.androidx.datastore.core)

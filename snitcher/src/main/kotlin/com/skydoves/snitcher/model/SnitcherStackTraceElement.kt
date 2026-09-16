@@ -28,7 +28,7 @@ public data class SnitcherStackTraceElement(
 @JvmSynthetic
 internal fun StackTraceElement.toSnitcherElement(): SnitcherStackTraceElement =
   SnitcherStackTraceElement(
-    fileName = "",
+    fileName = fileName.orEmpty(),
     lineNumber = lineNumber,
     className = className,
     methodName = methodName,

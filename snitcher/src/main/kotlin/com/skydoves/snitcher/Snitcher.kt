@@ -207,8 +207,7 @@ public class Snitcher(
         SnitcherInstaller.internalSnitcher.collectLatest { snitcher ->
           snitcher?.dataStore?.data?.filterNotNull()?.collectLatest {
             _exception.value = it.snitcherException
-            _launcher.value = it.launcher
-              ?: throw IllegalArgumentException("launcher package name must not be null")
+            _launcher.value = it.launcher.orEmpty()
           }
         }
       }

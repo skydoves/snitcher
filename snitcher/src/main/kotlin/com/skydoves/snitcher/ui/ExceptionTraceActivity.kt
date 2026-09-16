@@ -18,6 +18,7 @@ package com.skydoves.snitcher.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.skydoves.snitcher.Snitcher
@@ -35,6 +36,7 @@ public open class ExceptionTraceActivity : ComponentActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
 
     setContent {
       val exception: SnitcherException? by Snitcher.exception.collectAsState()
