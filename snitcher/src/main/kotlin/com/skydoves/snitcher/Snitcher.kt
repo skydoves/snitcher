@@ -21,6 +21,9 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import android.os.Process
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import com.skydoves.snitcher.Snitcher.Companion.install
@@ -31,6 +34,7 @@ import com.skydoves.snitcher.model.SnitcherException
 import com.skydoves.snitcher.model.SnitcherPreference
 import com.skydoves.snitcher.model.toSnitcherElement
 import com.skydoves.snitcher.ui.ExceptionTraceActivity
+import com.skydoves.snitcher.ui.theme.SnitcherThemeConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -200,6 +204,13 @@ public class Snitcher(
      */
     public val launcher: StateFlow<String> = _launcher
 
+    /**
+     * The theme that styles the pre-built Snitcher screens, such as [ExceptionTraceActivity].
+     * It is given by the `theme` parameter of [install], and it can also be replaced at any time
+     * to restyle the screens on the fly.
+     */
+    public var theme: SnitcherThemeConfig by mutableStateOf(SnitcherThemeConfig())
+
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     init {
@@ -234,6 +245,7 @@ public class Snitcher(
      * @param application Application.
      * @param traceActivity An Activity that will be launched when your app experiences a crash.
      * @param traceStrategy The trace strategy determines the launch behaviors when your app experiences a crash.
+     * @param theme The theme that styles the pre-built exception tracing screens.
      * @param exceptionHandler You can manage extra exception handlers, like logging exceptions on Firebase, by providing this lambda function here.
      * This handler will be called with a given [SnitcherException] when your app encounters exceptions.
      */
@@ -241,9 +253,11 @@ public class Snitcher(
       application: Application,
       traceActivity: KClass<*> = ExceptionTraceActivity::class,
       traceStrategy: TraceStrategy = TraceStrategy.CO_WORK,
+      theme: SnitcherThemeConfig = SnitcherThemeConfig(),
       exceptionHandler: (SnitcherException) -> Unit = {},
     ) {
       val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler() ?: return
+      this.theme = theme
       SnitcherInstaller.install(
         Snitcher(
           application = application,
@@ -263,6 +277,7 @@ public class Snitcher(
      * @param traceActivity An Activity that will be launched when your app experiences a crash.
      * @param traceStrategy The trace strategy determines the launch behaviors when your app experiences a crash.
      * @param launcher A launcher Activity that used to restore your application from a crash.
+     * @param theme The theme that styles the pre-built exception tracing screens.
      * @param exceptionHandler You can manage extra exception handlers, like logging exceptions on Firebase, by providing this lambda function here.
      * This handler will be called with a given [SnitcherException] when your app encounters exceptions.
      */
@@ -271,9 +286,11 @@ public class Snitcher(
       traceActivity: KClass<*> = ExceptionTraceActivity::class,
       traceStrategy: TraceStrategy = TraceStrategy.CO_WORK,
       launcher: KClass<T> = T::class,
+      theme: SnitcherThemeConfig = SnitcherThemeConfig(),
       noinline exceptionHandler: (SnitcherException) -> Unit = {},
     ) {
       val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler() ?: return
+      this.theme = theme
       SnitcherInstaller.install(
         Snitcher(
           application = application,

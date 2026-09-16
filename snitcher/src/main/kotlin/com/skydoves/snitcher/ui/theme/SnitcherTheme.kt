@@ -20,6 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.remember
+import com.skydoves.snitcher.Snitcher
 import com.skydoves.snitcher.ui.ExceptionTraceScreen
 
 /**
@@ -29,19 +31,44 @@ private val LocalColors = compositionLocalOf<SnitcherColor> {
   error("No colors provided! Make sure to wrap all usages of Snitcher components in SnitcherTheme.")
 }
 
-/** Snitcher Themes to be used for customizing [ExceptionTraceScreen]. */
+private val LocalTypography = compositionLocalOf<SnitcherTypography> {
+  error(
+    "No typography provided! Make sure to wrap all usages of Snitcher components in SnitcherTheme.",
+  )
+}
+
+private val LocalShapes = compositionLocalOf<SnitcherShapes> {
+  error("No shapes provided! Make sure to wrap all usages of Snitcher components in SnitcherTheme.")
+}
+
+/**
+ * Snitcher Themes to be used for customizing [ExceptionTraceScreen].
+ *
+ * The default values are taken from the [SnitcherThemeConfig] that was given to
+ * [Snitcher.install], so the pre-built screens and your own screens share the same theme.
+ *
+ * @param darkTheme Whether the dark colors should be used.
+ * @param colors The colors to be used by the Snitcher components.
+ * @param typography The text styles to be used by the Snitcher components.
+ * @param shapes The shapes to be used by the Snitcher components.
+ * @param content The content that will be styled with this theme.
+ */
 @Composable
 public fun SnitcherTheme(
   darkTheme: Boolean = isSystemInDarkTheme(),
   colors: SnitcherColor = if (darkTheme) {
-    SnitcherColor.defaultDarkColors()
+    Snitcher.theme.darkColors
   } else {
-    SnitcherColor.defaultColors()
+    Snitcher.theme.lightColors
   },
+  typography: SnitcherTypography = Snitcher.theme.typography,
+  shapes: SnitcherShapes = Snitcher.theme.shapes,
   content: @Composable () -> Unit,
 ) {
   CompositionLocalProvider(
-    LocalColors provides colors,
+    LocalColors provides remember(colors) { colors.resolveUnspecified() },
+    LocalTypography provides typography,
+    LocalShapes provides shapes,
   ) {
     content()
   }
@@ -55,4 +82,20 @@ public object SnitcherTheme {
     @Composable
     @ReadOnlyComposable
     get() = LocalColors.current
+
+  /**
+   * Retrieves the current [SnitcherTypography] at the call site's position in the hierarchy.
+   */
+  public val typography: SnitcherTypography
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalTypography.current
+
+  /**
+   * Retrieves the current [SnitcherShapes] at the call site's position in the hierarchy.
+   */
+  public val shapes: SnitcherShapes
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalShapes.current
 }

@@ -15,19 +15,31 @@
  */
 package com.skydoves.snitcher.ui.theme
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.takeOrElse
 import com.skydoves.snitcher.ui.ExceptionTraceScreen
 
 /**
  * A collection of colors, which are contained by [SnitcherTheme] to implement [ExceptionTraceScreen].
+ *
+ * @property primary The accent color, which is used for the title, the section labels, and the buttons.
+ * @property onPrimary The content color that is drawn on top of [primary], such as the button labels.
+ * @property background The background color of the Snitcher screens, which is also drawn behind the system bars.
+ * @property textHighEmphasis The color of the primary text, such as the exception message and the stack trace.
+ * @property textLowEmphasis The color of the secondary text, such as the package and device information.
+ * When it is [Color.Unspecified], a dimmed [textHighEmphasis] is used.
+ * @property outline The color of the outlines, such as the border of the stack trace container.
+ * When it is [Color.Unspecified], [primary] is used.
  */
 @Immutable
 public data class SnitcherColor(
   val primary: Color,
   val background: Color,
   val textHighEmphasis: Color,
+  val onPrimary: Color = Color.White,
+  val textLowEmphasis: Color = Color.Unspecified,
+  val outline: Color = Color.Unspecified,
 ) {
   public companion object {
     /**
@@ -35,7 +47,6 @@ public data class SnitcherColor(
      *
      * @return A [SnitcherColor] instance holding our color palette.
      */
-    @Composable
     public fun defaultColors(): SnitcherColor = SnitcherColor(
       primary = Color(0XFF28a9f1),
       background = Color.White,
@@ -47,7 +58,6 @@ public data class SnitcherColor(
      *
      * @return A [SnitcherColor] instance holding our color palette.
      */
-    @Composable
     public fun defaultDarkColors(): SnitcherColor = SnitcherColor(
       primary = Color(0XFF28a9f1),
       background = Color.Black,
@@ -55,3 +65,14 @@ public data class SnitcherColor(
     )
   }
 }
+
+/**
+ * Fills the colors that were left unspecified with the ones they follow, so that changing a single
+ * color, such as `SnitcherColor.defaultColors().copy(primary = Color.Red)`, keeps the palette
+ * consistent.
+ */
+@JvmSynthetic
+internal fun SnitcherColor.resolveUnspecified(): SnitcherColor = copy(
+  textLowEmphasis = textLowEmphasis.takeOrElse { textHighEmphasis.copy(alpha = 0.6f) },
+  outline = outline.takeOrElse { primary },
+)

@@ -16,7 +16,18 @@
 package com.skydoves.snitcherdemo
 
 import android.app.Application
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.skydoves.snitcher.Snitcher
+import com.skydoves.snitcher.ui.theme.SnitcherColor
+import com.skydoves.snitcher.ui.theme.SnitcherShapes
+import com.skydoves.snitcher.ui.theme.SnitcherThemeConfig
+import com.skydoves.snitcher.ui.theme.SnitcherTypography
+import com.skydoves.snitcherdemo.ui.theme.Purple40
+import com.skydoves.snitcherdemo.ui.theme.Purple80
 
 class SnitcherDemoApp : Application() {
 
@@ -25,6 +36,14 @@ class SnitcherDemoApp : Application() {
 
     Snitcher.install(
       application = this,
+      theme = SnitcherThemeConfig(
+        lightColors = SnitcherColor.defaultColors().copy(primary = Purple40),
+        darkColors = SnitcherColor.defaultDarkColors().copy(primary = Purple80),
+        typography = SnitcherTypography.defaultTypography().copy(
+          title = TextStyle(fontSize = 30.sp, fontWeight = FontWeight.Black),
+        ),
+        shapes = SnitcherShapes(button = RoundedCornerShape(20.dp)),
+      ),
       exceptionHandler = {
         // do something
       },
