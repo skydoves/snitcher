@@ -25,6 +25,7 @@ public final class com/skydoves/snitcher/TraceStrategy : java/lang/Enum {
 }
 
 public final class com/skydoves/snitcher/installer/SnitcherInstaller {
+	public static final field $stable I
 	public static final field INSTANCE Lcom/skydoves/snitcher/installer/SnitcherInstaller;
 	public final fun getInternalSnitcher ()Lkotlinx/coroutines/flow/MutableStateFlow;
 	public static final fun install (Lcom/skydoves/snitcher/Snitcher;)V
@@ -35,7 +36,6 @@ public final class com/skydoves/snitcher/installer/SnitcherInstaller {
 public final class com/skydoves/snitcher/model/SnitcherException : java/io/Serializable {
 	public static final field $stable I
 	public static final field Companion Lcom/skydoves/snitcher/model/SnitcherException$Companion;
-	public synthetic fun <init> (IJLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	public final fun component1 ()J
 	public final fun component2 ()Ljava/lang/String;
@@ -55,17 +55,16 @@ public final class com/skydoves/snitcher/model/SnitcherException : java/io/Seria
 	public final fun getThrowable ()Ljava/lang/Throwable;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final synthetic fun write$Self (Lcom/skydoves/snitcher/model/SnitcherException;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
-public final class com/skydoves/snitcher/model/SnitcherException$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/skydoves/snitcher/model/SnitcherException$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/skydoves/snitcher/model/SnitcherException$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/skydoves/snitcher/model/SnitcherException;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/skydoves/snitcher/model/SnitcherException;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/skydoves/snitcher/model/SnitcherException;)V
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/skydoves/snitcher/model/SnitcherException;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
@@ -77,7 +76,6 @@ public final class com/skydoves/snitcher/model/SnitcherException$Companion {
 public final class com/skydoves/snitcher/model/SnitcherStackTraceElement {
 	public static final field $stable I
 	public static final field Companion Lcom/skydoves/snitcher/model/SnitcherStackTraceElement$Companion;
-	public synthetic fun <init> (ILjava/lang/String;ILjava/lang/String;Ljava/lang/String;Lkotlinx/serialization/internal/SerializationConstructorMarker;)V
 	public fun <init> (Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()I
@@ -92,17 +90,16 @@ public final class com/skydoves/snitcher/model/SnitcherStackTraceElement {
 	public final fun getMethodName ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public static final synthetic fun write$Self (Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
-public final class com/skydoves/snitcher/model/SnitcherStackTraceElement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/skydoves/snitcher/model/SnitcherStackTraceElement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/skydoves/snitcher/model/SnitcherStackTraceElement$$serializer;
-	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;)V
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/skydoves/snitcher/model/SnitcherStackTraceElement;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
@@ -117,9 +114,8 @@ public final class com/skydoves/snitcher/ui/AppRestoreScreenKt {
 
 public final class com/skydoves/snitcher/ui/ComposableSingletons$ExceptionTraceActivityKt {
 	public static final field INSTANCE Lcom/skydoves/snitcher/ui/ComposableSingletons$ExceptionTraceActivityKt;
-	public static field lambda-1 Lkotlin/jvm/functions/Function2;
 	public fun <init> ()V
-	public final fun getLambda-1$snitcher_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda$-98219935$SnitcherDemo_snitcher_release ()Lkotlin/jvm/functions/Function2;
 }
 
 public class com/skydoves/snitcher/ui/ExceptionTraceActivity : androidx/activity/ComponentActivity {

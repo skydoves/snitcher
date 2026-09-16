@@ -35,7 +35,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v6
       - name: API check
-        run: ./gradlew checkKotlinAbi
+        run: ./gradlew apiCheck
 
   build:
     runs-on: ubuntu-latest
