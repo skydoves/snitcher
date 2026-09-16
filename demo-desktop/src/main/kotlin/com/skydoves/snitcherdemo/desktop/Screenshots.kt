@@ -57,7 +57,7 @@ public fun main(args: Array<String>) {
   )
   Snitcher.platformInfo = "1.0.3 (4) macOS 26.5 (JVM 21)"
 
-  render(File(outputDirectory, "desktop_trace_light.png"), darkTheme = false) {
+  render(File(outputDirectory, "desktop_trace.png"), darkTheme = false) {
     ExceptionTraceScreen(
       snitcherException = sampleException,
       onRestore = {},
@@ -73,7 +73,7 @@ public fun main(args: Array<String>) {
     )
   }
 
-  render(File(outputDirectory, "desktop_restore_light.png"), darkTheme = false) {
+  render(File(outputDirectory, "desktop_restore.png"), darkTheme = false) {
     AppRestoreScreen(onRestore = {})
   }
 }

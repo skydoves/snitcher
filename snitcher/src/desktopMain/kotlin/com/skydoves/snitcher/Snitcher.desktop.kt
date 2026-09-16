@@ -15,8 +15,8 @@
  */
 package com.skydoves.snitcher
 
-import com.skydoves.snitcher.internal.restoreThrowable
 import com.skydoves.snitcher.model.SnitcherException
+import com.skydoves.snitcher.storage.SNITCHER_STORE_FILE_NAME
 import com.skydoves.snitcher.storage.SnitcherStore
 import com.skydoves.snitcher.ui.theme.SnitcherThemeConfig
 import okio.FileSystem
@@ -34,6 +34,7 @@ import okio.Path.Companion.toPath
  * @param theme The theme that styles the pre-built screens.
  * @param strings The texts of the pre-built screens.
  * @param platformInfo The application and system description shown under the exception message.
+ * @param isDebuggable Whether the full trace screen is displayed instead of the restore screen.
  * @param exceptionHandler An extra handler, such as a logger, which is called with the captured
  * exception when the application crashes.
  */
@@ -42,32 +43,42 @@ public fun Snitcher.install(
   theme: SnitcherThemeConfig = SnitcherThemeConfig(),
   strings: SnitcherStrings = SnitcherStrings(),
   platformInfo: String = defaultPlatformInfo(),
+  isDebuggable: Boolean = true,
   exceptionHandler: (SnitcherException) -> Unit = {},
 ) {
   this.theme = theme
   this.strings = strings
   this.platformInfo = platformInfo
+  this.isDebuggable = isDebuggable
 
   bind(
-    store = SnitcherStore(FileSystem.SYSTEM, storageDirectory.toPath().resolve(STORE_FILE_NAME)),
+    store = SnitcherStore(
+      FileSystem.SYSTEM,
+      storageDirectory.toPath().resolve(SNITCHER_STORE_FILE_NAME),
+    ),
     launcher = null,
     exceptionHandler = exceptionHandler,
   )
 
   val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
   Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
-    capture(throwable = throwable, launcher = null)
-    defaultExceptionHandler?.uncaughtException(thread, throwable)
+    if (isRethrowing) {
+      // the debug action threw the recorded crash again, so the record stays as it is.
+      isRethrowing = false
+    } else {
+      capture(throwable = throwable, launcher = null)
+    }
+
+    // a JVM without a default handler prints the crash itself, and installing one silences that,
+    // so the trace keeps reaching the console either way.
+    val handler = defaultExceptionHandler
+    if (handler != null) {
+      handler.uncaughtException(thread, throwable)
+    } else {
+      throwable.printStackTrace()
+    }
   }
 }
-
-/** Throws the captured exception again so that an attached debugger catches it. */
-public fun Snitcher.debug(exception: SnitcherException) {
-  val throwable = exception.restoreThrowable() ?: return
-  throw throwable
-}
-
-private const val STORE_FILE_NAME = "snitcher.json"
 
 private fun defaultStorageDirectory(): String = System.getProperty("user.home") + "/.snitcher"
 

@@ -15,6 +15,8 @@
  */
 
 import com.skydoves.snitcher.Configuration
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinMultiplatform
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -24,11 +26,15 @@ plugins {
   id(libs.plugins.compose.compiler.get().pluginId)
   id(libs.plugins.kotlin.serialization.get().pluginId)
   id(libs.plugins.nexus.plugin.get().pluginId)
+  id(libs.plugins.baseline.profile.get().pluginId)
+  id(libs.plugins.dokka.get().pluginId)
 }
 
 apply(from = "${rootDir}/scripts/publish-module.gradle.kts")
 
 mavenPublishing {
+  configure(KotlinMultiplatform(javadocJar = JavadocJar.Dokka("dokkaGeneratePublicationHtml")))
+
   val artifactId = "snitcher"
   coordinates(
     Configuration.artifactGroup,
@@ -59,6 +65,8 @@ kotlin {
       abortOnError = false
     }
 
+    withHostTest {}
+
     compilerOptions {
       jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvmTarget.get()))
     }
@@ -87,12 +95,15 @@ kotlin {
     getByName("androidMain").dependsOn(jvmSharedMain)
 
     commonMain.dependencies {
-      implementation(libs.compose.runtime)
-      implementation(libs.compose.foundation)
+      // these carry types of the public API, such as StateFlow, Color, TextStyle and Modifier.
+      api(libs.compose.runtime)
+      api(libs.compose.foundation)
+      api(libs.compose.ui)
+      api(libs.coroutines)
+      api(libs.kotlinx.serialization.core)
+
       implementation(libs.compose.material)
-      implementation(libs.compose.ui)
       implementation(libs.kotlinx.serialization.json)
-      implementation(libs.coroutines)
       implementation(libs.okio)
     }
 
@@ -102,9 +113,21 @@ kotlin {
     }
 
     androidMain.dependencies {
-      implementation(libs.androidx.activity.compose)
+      // ExceptionTraceActivity extends ComponentActivity, which consumers subclass.
+      api(libs.androidx.activity.compose)
+
       implementation(libs.androidx.core.ktx)
     }
 
   }
+}
+
+baselineProfile {
+  filter {
+    include("com.skydoves.snitcher.**")
+  }
+}
+
+dependencies {
+  baselineProfile(project(":benchmark"))
 }

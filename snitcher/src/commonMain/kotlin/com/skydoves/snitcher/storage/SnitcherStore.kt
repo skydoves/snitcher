@@ -20,6 +20,9 @@ import kotlinx.serialization.json.Json
 import okio.FileSystem
 import okio.Path
 
+/** The name of the file that holds the last captured crash. */
+internal const val SNITCHER_STORE_FILE_NAME: String = "snitcher.json"
+
 /**
  * A tiny synchronous store for the last captured crash.
  *
@@ -29,28 +32,54 @@ import okio.Path
  */
 internal class SnitcherStore(private val fileSystem: FileSystem, private val path: Path) {
 
-  fun read(): SnitcherPreference? = runCatching {
+  fun read(): SnitcherPreference? {
     if (!fileSystem.exists(path)) {
       return null
     }
-    val content = fileSystem.read(path) { readUtf8() }
-    if (content.isBlank()) null else json.decodeFromString(SnitcherPreference.serializer(), content)
-  }.getOrNull()
 
-  fun write(preference: SnitcherPreference) {
-    runCatching {
-      path.parent?.let { fileSystem.createDirectories(it) }
-      fileSystem.write(path) {
-        writeUtf8(json.encodeToString(SnitcherPreference.serializer(), preference))
+    return runCatching {
+      val content = fileSystem.read(path) { readUtf8() }
+      if (content.isBlank()) {
+        null
+      } else {
+        json.decodeFromString(SnitcherPreference.serializer(), content)
       }
+    }.getOrElse {
+      // a file that cannot be decoded is a leftover of a crash that could not be written whole,
+      // and it would fail every launch from now on, so it goes.
+      clear()
+      null
     }
   }
+
+  /**
+   * Writes the crash and returns whether it reached the disk.
+   *
+   * The payload goes to a temporary file first and is then moved onto [path], so a reader never
+   * meets a half written file, even when the process is killed in the middle of a crash.
+   */
+  fun write(preference: SnitcherPreference): Boolean = runCatching {
+    val directory = path.parent
+    if (directory != null) {
+      fileSystem.createDirectories(directory)
+    }
+
+    val temporaryPath = path.parent?.resolve("$TEMPORARY_PREFIX${path.name}") ?: path
+    fileSystem.write(temporaryPath) {
+      writeUtf8(json.encodeToString(SnitcherPreference.serializer(), preference))
+    }
+    if (temporaryPath != path) {
+      fileSystem.atomicMove(temporaryPath, path)
+    }
+    true
+  }.getOrElse { false }
 
   fun clear() {
     runCatching { fileSystem.delete(path, mustExist = false) }
   }
 
   private companion object {
+    private const val TEMPORARY_PREFIX = "~"
     private val json = Json { ignoreUnknownKeys = true }
   }
 }

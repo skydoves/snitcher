@@ -23,6 +23,7 @@ import android.os.Process
 import com.skydoves.snitcher.Snitcher
 import com.skydoves.snitcher.TraceStrategy
 import com.skydoves.snitcher.ui.ExceptionTraceActivity
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
 import kotlin.system.exitProcess
 
@@ -38,8 +39,9 @@ internal class SnitcherExceptionHandler(
   private val defaultExceptionHandler: Thread.UncaughtExceptionHandler,
 ) : Thread.UncaughtExceptionHandler {
 
+  @Volatile
   private var lastActivity: Activity? = null
-  private var activityCount = 0
+  private val activityCount = AtomicInteger(0)
 
   init {
     application.registerActivityLifecycleCallbacks(
@@ -51,7 +53,11 @@ internal class SnitcherExceptionHandler(
 
         override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) = Unit
 
-        override fun onActivityDestroyed(activity: Activity) = Unit
+        override fun onActivityDestroyed(activity: Activity) {
+          if (lastActivity === activity) {
+            lastActivity = null
+          }
+        }
 
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
           if (isExceptionActivity(activity)) {
@@ -65,7 +71,7 @@ internal class SnitcherExceptionHandler(
           if (isExceptionActivity(activity)) {
             return
           }
-          activityCount++
+          activityCount.incrementAndGet()
           lastActivity = activity
         }
 
@@ -73,8 +79,7 @@ internal class SnitcherExceptionHandler(
           if (isExceptionActivity(activity)) {
             return
           }
-          activityCount--
-          if (activityCount < 0) {
+          if (activityCount.decrementAndGet() < 0) {
             lastActivity = null
           }
         }
@@ -86,24 +91,35 @@ internal class SnitcherExceptionHandler(
 
   override fun uncaughtException(thread: Thread, throwable: Throwable) {
     val activity = lastActivity
+
+    if (Snitcher.isRethrowing) {
+      // the debug action threw the recorded crash again, so the record stays as it is.
+      Snitcher.isRethrowing = false
+    } else {
+      // persists the crash synchronously, so that it survives the process death below. It runs even
+      // without a foreground activity, where the crash can still be reported on the next launch.
+      Snitcher.capture(throwable = throwable, launcher = launcher ?: activity?.javaClass?.name)
+    }
+
     if (activity == null) {
       defaultExceptionHandler.uncaughtException(thread, throwable)
       return
     }
 
-    // persists the crash synchronously, so that it survives the process death below.
-    Snitcher.capture(throwable = throwable, launcher = launcher ?: activity.javaClass.name)
+    try {
+      // call the default exception handler for integrating with other libraries.
+      callDefaultExceptionHandler(thread, throwable)
 
-    // call the default exception handler for integrating with other libraries.
-    callDefaultExceptionHandler(thread, throwable)
-
-    if (traceStrategy == TraceStrategy.CO_WORK) {
-      launchExceptionTracingActivity(activity)
+      if (traceStrategy == TraceStrategy.CO_WORK) {
+        launchExceptionTracingActivity(activity)
+      }
+    } catch (_: Throwable) {
+      // a failure here must not leave the process alive with a dead thread.
+    } finally {
+      // kill the current process.
+      Process.killProcess(Process.myPid())
+      exitProcess(EXIT_CODE)
     }
-
-    // kill the current process.
-    Process.killProcess(Process.myPid())
-    exitProcess(EXIT_CODE)
   }
 
   private fun launchExceptionTracingActivity(activity: Activity) = activity.run {
@@ -125,7 +141,7 @@ internal class SnitcherExceptionHandler(
       ) {
         defaultExceptionHandler.uncaughtException(thread, throwable)
       }
-    } catch (_: Exception) {
+    } catch (_: Throwable) {
     }
   }
 

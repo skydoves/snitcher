@@ -21,7 +21,8 @@ fun main() {
 ```
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/skydoves/snitcher/main/art/desktop_trace.png" width="546"/>
+<img src="https://raw.githubusercontent.com/skydoves/snitcher/main/art/desktop_trace.png" width="420"/>
+<img src="https://raw.githubusercontent.com/skydoves/snitcher/main/art/desktop_trace_dark.png" width="420"/>
 </p>
 
 Snitcher becomes the default uncaught exception handler of the JVM and delegates to the handler that was installed before it, so a logging handler keeps working.

@@ -26,19 +26,20 @@ import com.skydoves.snitcher.ui.ExceptionTraceScreen
 
 /**
  * Local providers for various properties we connect to our components, for styling.
+ *
+ * They fall back to the installed [Snitcher.theme] so that a Snitcher screen also renders outside
+ * of a [SnitcherTheme] block, rather than throwing.
  */
 private val LocalColors = compositionLocalOf<SnitcherColor> {
-  error("No colors provided! Make sure to wrap all usages of Snitcher components in SnitcherTheme.")
+  Snitcher.theme.lightColors.resolveUnspecified()
 }
 
 private val LocalTypography = compositionLocalOf<SnitcherTypography> {
-  error(
-    "No typography provided! Make sure to wrap all usages of Snitcher components in SnitcherTheme.",
-  )
+  Snitcher.theme.typography
 }
 
 private val LocalShapes = compositionLocalOf<SnitcherShapes> {
-  error("No shapes provided! Make sure to wrap all usages of Snitcher components in SnitcherTheme.")
+  Snitcher.theme.shapes
 }
 
 /**

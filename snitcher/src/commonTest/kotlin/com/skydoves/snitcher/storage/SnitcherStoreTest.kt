@@ -22,7 +22,9 @@ import kotlin.random.Random
 import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 internal class SnitcherStoreTest {
 
@@ -50,6 +52,22 @@ internal class SnitcherStoreTest {
   @Test
   fun readsNullWhenNothingWasWritten() {
     assertNull(store.read())
+  }
+
+  @Test
+  fun readsNullAndForgetsACorruptFile() {
+    store.write(SnitcherPreference(snitcherException = exception, launcher = null))
+    path.parent?.let { FileSystem.SYSTEM.createDirectories(it) }
+    FileSystem.SYSTEM.write(path) { writeUtf8("{ this is not a crash }") }
+
+    assertNull(store.read())
+    // a file that cannot be decoded would fail every launch, so reading it once removes it.
+    assertFalse(FileSystem.SYSTEM.exists(path))
+  }
+
+  @Test
+  fun reportsWhetherTheCrashReachedTheDisk() {
+    assertTrue(store.write(SnitcherPreference(snitcherException = exception, launcher = null)))
   }
 
   @Test

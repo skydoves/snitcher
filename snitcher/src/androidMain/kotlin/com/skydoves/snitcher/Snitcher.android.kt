@@ -23,6 +23,7 @@ import com.skydoves.snitcher.extensions.packageInfo
 import com.skydoves.snitcher.extensions.versionCode
 import com.skydoves.snitcher.internal.SnitcherExceptionHandler
 import com.skydoves.snitcher.model.SnitcherException
+import com.skydoves.snitcher.storage.SNITCHER_STORE_FILE_NAME
 import com.skydoves.snitcher.storage.SnitcherStore
 import com.skydoves.snitcher.ui.ExceptionTraceActivity
 import com.skydoves.snitcher.ui.theme.SnitcherThemeConfig
@@ -41,6 +42,8 @@ import kotlin.reflect.KClass
  * @param strings The texts of the pre-built exception tracing screens.
  * @param exceptionHandler You can manage extra exception handlers, like logging exceptions on Firebase, by providing this lambda function here.
  * This handler will be called with a given [SnitcherException] when your app encounters exceptions.
+ * It runs on the crashing thread, before the process is killed, so keep it short and do not block
+ * on the network.
  */
 public fun Snitcher.install(
   application: Application,
@@ -114,7 +117,7 @@ internal fun Snitcher.installInternal(
   bind(
     store = SnitcherStore(
       fileSystem = FileSystem.SYSTEM,
-      path = application.filesDir.toOkioPath().resolve(STORE_FILE_NAME),
+      path = application.filesDir.toOkioPath().resolve(SNITCHER_STORE_FILE_NAME),
     ),
     launcher = launcher,
     exceptionHandler = exceptionHandler,
@@ -131,11 +134,8 @@ internal fun Snitcher.installInternal(
   )
 }
 
-@PublishedApi
-internal val Application.isDebuggableApp: Boolean
+private val Application.isDebuggableApp: Boolean
   get() = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
-
-private const val STORE_FILE_NAME = "snitcher.json"
 
 private fun Application.platformInfo(): String {
   val packageInfo = packageInfo()

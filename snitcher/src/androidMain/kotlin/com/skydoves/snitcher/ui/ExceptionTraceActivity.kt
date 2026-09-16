@@ -22,6 +22,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.skydoves.snitcher.Snitcher
+import com.skydoves.snitcher.launcher
 import com.skydoves.snitcher.model.SnitcherException
 import com.skydoves.snitcher.ui.theme.SnitcherTheme
 

@@ -1,9 +1,13 @@
+public final class com/skydoves/snitcher/Launcher_androidKt {
+	public static final fun getLauncher (Lcom/skydoves/snitcher/Snitcher;)Lkotlinx/coroutines/flow/StateFlow;
+}
+
 public final class com/skydoves/snitcher/Snitcher {
 	public static final field $stable I
 	public static final field INSTANCE Lcom/skydoves/snitcher/Snitcher;
 	public final fun clear ()V
 	public final fun getException ()Lkotlinx/coroutines/flow/StateFlow;
-	public final fun getLauncher ()Lkotlinx/coroutines/flow/StateFlow;
+	public final fun getLatestException ()Lcom/skydoves/snitcher/model/SnitcherException;
 	public final fun getPlatformInfo ()Ljava/lang/String;
 	public final fun getStrings ()Lcom/skydoves/snitcher/SnitcherStrings;
 	public final fun getTheme ()Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;
@@ -50,7 +54,10 @@ public final class com/skydoves/snitcher/Snitcher_androidKt {
 	public static final fun install (Lcom/skydoves/snitcher/Snitcher;Landroid/app/Application;Lkotlin/reflect/KClass;Lcom/skydoves/snitcher/TraceStrategy;Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;Lcom/skydoves/snitcher/SnitcherStrings;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun install$default (Lcom/skydoves/snitcher/Snitcher;Landroid/app/Application;Lkotlin/reflect/KClass;Lcom/skydoves/snitcher/TraceStrategy;Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;Lcom/skydoves/snitcher/SnitcherStrings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public static final fun installInternal (Lcom/skydoves/snitcher/Snitcher;Landroid/app/Application;Ljava/lang/String;Lkotlin/reflect/KClass;Lcom/skydoves/snitcher/TraceStrategy;Lcom/skydoves/snitcher/ui/theme/SnitcherThemeConfig;Lcom/skydoves/snitcher/SnitcherStrings;Lkotlin/jvm/functions/Function1;)V
-	public static final fun isDebuggableApp (Landroid/app/Application;)Z
+}
+
+public final class com/skydoves/snitcher/Snitcher_jvmKt {
+	public static final fun debug (Lcom/skydoves/snitcher/Snitcher;Lcom/skydoves/snitcher/model/SnitcherException;)Ljava/lang/Void;
 }
 
 public final class com/skydoves/snitcher/TraceStrategy : java/lang/Enum {
@@ -168,6 +175,7 @@ public final class com/skydoves/snitcher/ui/SnitcherScreens_androidKt {
 public final class com/skydoves/snitcher/ui/theme/SnitcherColor {
 	public static final field $stable I
 	public static final field Companion Lcom/skydoves/snitcher/ui/theme/SnitcherColor$Companion;
+	public static final field UNSPECIFIED J
 	public synthetic fun <init> (JJJJJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (JJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-0d7_KjU ()J
@@ -192,6 +200,8 @@ public final class com/skydoves/snitcher/ui/theme/SnitcherColor {
 public final class com/skydoves/snitcher/ui/theme/SnitcherColor$Companion {
 	public final fun defaultColors ()Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
 	public final fun defaultDarkColors ()Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public final fun fromArgb (JJJJJJ)Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
+	public static synthetic fun fromArgb$default (Lcom/skydoves/snitcher/ui/theme/SnitcherColor$Companion;JJJJJJILjava/lang/Object;)Lcom/skydoves/snitcher/ui/theme/SnitcherColor;
 }
 
 public final class com/skydoves/snitcher/ui/theme/SnitcherShapes {

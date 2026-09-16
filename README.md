@@ -41,7 +41,7 @@ Add the dependency below to your **module**'s `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("com.github.skydoves:snitcher:$version")
+    implementation("com.github.skydoves:snitcher:2.0.0")
 }
 ```
 
@@ -51,7 +51,7 @@ In a multiplatform module, add it to the source set that needs it:
 kotlin {
   sourceSets {
     commonMain.dependencies {
-      implementation("com.github.skydoves:snitcher:$version")
+      implementation("com.github.skydoves:snitcher:2.0.0")
     }
   }
 }
@@ -68,7 +68,7 @@ kotlin {
 | When the screen is shown | right after the crash, in a trace activity | right after the crash, in a window | on the next launch |
 | Can restart the app | yes | no, the process keeps running | no, iOS does not let an app relaunch itself |
 
-On iOS an unhandled Kotlin exception that reaches the Objective-C boundary always terminates the process, so the crash is persisted and displayed on the next launch. An exception that is only unhandled inside a coroutine does not terminate the process, and is published right away.
+On iOS an unhandled Kotlin exception terminates the process, so the crash is recorded and displayed on the next launch. Snitcher records it and leaves the termination to the runtime, exactly as it would happen without Snitcher.
 
 ## Usage
 
@@ -77,6 +77,9 @@ On iOS an unhandled Kotlin exception that reaches the Objective-C boundary alway
 Install Snitcher in your `Application` class. Snitcher becomes the default uncaught exception handler, persists the crash, and launches the exception tracing activity.
 
 ```kotlin
+import com.skydoves.snitcher.Snitcher
+import com.skydoves.snitcher.install
+
 class App : Application() {
 
   override fun onCreate() {
@@ -86,6 +89,8 @@ class App : Application() {
   }
 }
 ```
+
+`install` is an extension of the `Snitcher` object that lives in each platform source set, so it needs that import.
 
 ### Desktop
 
@@ -231,6 +236,16 @@ SnitcherTheme {
   }
 }
 ```
+
+## Migrating from 1.0.x
+
+- `Snitcher.install(..)` is a platform extension now, so add `import com.skydoves.snitcher.install`
+- The texts moved from `values/strings.xml` to `SnitcherStrings`, which the installer takes. Locale
+  specific `values-xx` overrides of the `snitcher_*` strings no longer apply
+- `SnitcherException.throwable` became `SnitcherException.toThrowable()`, on Android and desktop
+- `SnitcherException` is no longer `java.io.Serializable`, and `SnitcherInstaller` is gone
+- The crash is stored in a plain file rather than in DataStore, so a crash written by 1.0.x is
+  not read back after the update
 
 ## Find this repository useful? :heart:
 Support it by joining __[stargazers](https://github.com/skydoves/snitcher/stargazers)__ for this repository. :star: <br>

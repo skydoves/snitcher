@@ -18,8 +18,9 @@ package com.skydoves.snitcher.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.skydoves.snitcher.Snitcher
+import com.skydoves.snitcher.debug
 import com.skydoves.snitcher.extensions.restoreApp
-import com.skydoves.snitcher.internal.restoreThrowable
 import com.skydoves.snitcher.model.SnitcherException
 
 /**
@@ -43,7 +44,7 @@ public fun ExceptionTraceScreen(
     snitcherException = snitcherException,
     modifier = modifier,
     onRestore = { context.restoreApp(launcher) },
-    onDebug = { snitcherException.restoreThrowable()?.let { throw it } },
+    onDebug = { Snitcher.debug(snitcherException) },
   )
 }
 

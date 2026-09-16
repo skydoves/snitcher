@@ -17,7 +17,7 @@ $ ./gradlew spotlessApply
 Then dump binary API of this library that is public in sense of Kotlin visibilities and ensures that the public binary API wasn't changed in a way that make this change binary incompatible.
 
 ```bash
-./gradlew apiDump
+./gradlew updateKotlinAbi
 ```
 
 Please correct any failures before requesting a review.

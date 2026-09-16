@@ -16,7 +16,7 @@ Snitcher.install(
 )
 ```
 
-`lightColors` and `darkColors` are picked by the system dark mode. Every field has a default, so you only need to declare what you want to change.
+`lightColors` and `darkColors` are picked by the system dark mode. Start from `defaultColors()`, `defaultDarkColors()` and `defaultTypography()` and `copy` what you want to change, since a palette and a typography carry no partial defaults.
 
 **SnitcherColor**
 
@@ -47,16 +47,15 @@ If you build your own trace screens, wrap them in `SnitcherTheme`. Its defaults 
 
 ```kotlin
 SnitcherTheme(
-  colors = SnitcherTheme.colors.copy(primary = Color.Blue),
+  colors = Snitcher.theme.lightColors.copy(primary = Color.Blue),
 ) {
-  if (exception != null) {
-    ExceptionTraceScreen(
-      launcher = launcher,
-      snitcherException = exception!!,
-    )
+  exception?.let {
+    ExceptionTraceScreen(snitcherException = it, onRestore = { Snitcher.clear() })
   }
 }
 ```
+
+`SnitcherTheme.colors` reads the theme of the surrounding composition, so build the argument from `Snitcher.theme` rather than from `SnitcherTheme.colors` when you call `SnitcherTheme` yourself.
 
 The texts of the pre-built screens are plain strings rather than platform resources, so they are shared across platforms. Give a `SnitcherStrings` to the installer to translate or reword them:
 

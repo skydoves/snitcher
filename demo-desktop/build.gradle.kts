@@ -47,7 +47,7 @@ dependencies {
 /** Renders the pre-built screens into `art/` for the documentation. */
 tasks.register<JavaExec>("generateScreenshots") {
   group = "documentation"
-  description = "Renders the Snitcher screens off screen and writes them into the art directory."
+  description = "Renders the desktop Snitcher screens off screen into the art directory."
   mainClass.set("com.skydoves.snitcherdemo.desktop.ScreenshotsKt")
   classpath = sourceSets.getByName("main").runtimeClasspath
   args("${rootDir}/art")

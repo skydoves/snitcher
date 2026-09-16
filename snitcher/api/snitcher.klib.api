@@ -6,17 +6,6 @@
 // - Show declarations: true
 
 // Library unique name: <SnitcherDemo:snitcher>
-final enum class com.skydoves.snitcher/TraceStrategy : kotlin/Enum<com.skydoves.snitcher/TraceStrategy> { // com.skydoves.snitcher/TraceStrategy|null[0]
-    enum entry CO_WORK // com.skydoves.snitcher/TraceStrategy.CO_WORK|null[0]
-    enum entry REPLACE // com.skydoves.snitcher/TraceStrategy.REPLACE|null[0]
-
-    final val entries // com.skydoves.snitcher/TraceStrategy.entries|#static{}entries[0]
-        final fun <get-entries>(): kotlin.enums/EnumEntries<com.skydoves.snitcher/TraceStrategy> // com.skydoves.snitcher/TraceStrategy.entries.<get-entries>|<get-entries>#static(){}[0]
-
-    final fun valueOf(kotlin/String): com.skydoves.snitcher/TraceStrategy // com.skydoves.snitcher/TraceStrategy.valueOf|valueOf#static(kotlin.String){}[0]
-    final fun values(): kotlin/Array<com.skydoves.snitcher/TraceStrategy> // com.skydoves.snitcher/TraceStrategy.values|values#static(){}[0]
-}
-
 final class com.skydoves.snitcher.model/SnitcherException { // com.skydoves.snitcher.model/SnitcherException|null[0]
     constructor <init>(kotlin/Long, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin.collections/List<com.skydoves.snitcher.model/SnitcherStackTraceElement> = ...) // com.skydoves.snitcher.model/SnitcherException.<init>|<init>(kotlin.Long;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.collections.List<com.skydoves.snitcher.model.SnitcherStackTraceElement>){}[0]
 
@@ -123,8 +112,12 @@ final class com.skydoves.snitcher.ui.theme/SnitcherColor { // com.skydoves.snitc
     final fun toString(): kotlin/String // com.skydoves.snitcher.ui.theme/SnitcherColor.toString|toString(){}[0]
 
     final object Companion { // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion|null[0]
+        final const val UNSPECIFIED // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.UNSPECIFIED|{}UNSPECIFIED[0]
+            final fun <get-UNSPECIFIED>(): kotlin/Long // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.UNSPECIFIED.<get-UNSPECIFIED>|<get-UNSPECIFIED>(){}[0]
+
         final fun defaultColors(): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.defaultColors|defaultColors(){}[0]
         final fun defaultDarkColors(): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.defaultDarkColors|defaultDarkColors(){}[0]
+        final fun fromArgb(kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long = ..., kotlin/Long = ..., kotlin/Long = ...): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.fromArgb|fromArgb(kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long){}[0]
     }
 }
 
@@ -255,8 +248,8 @@ final object com.skydoves.snitcher/Snitcher { // com.skydoves.snitcher/Snitcher|
         final fun <get-exception>(): kotlinx.coroutines.flow/StateFlow<com.skydoves.snitcher.model/SnitcherException?> // com.skydoves.snitcher/Snitcher.exception.<get-exception>|<get-exception>(){}[0]
     final val isInstalled // com.skydoves.snitcher/Snitcher.isInstalled|{}isInstalled[0]
         final fun <get-isInstalled>(): kotlin/Boolean // com.skydoves.snitcher/Snitcher.isInstalled.<get-isInstalled>|<get-isInstalled>(){}[0]
-    final val launcher // com.skydoves.snitcher/Snitcher.launcher|{}launcher[0]
-        final fun <get-launcher>(): kotlinx.coroutines.flow/StateFlow<kotlin/String> // com.skydoves.snitcher/Snitcher.launcher.<get-launcher>|<get-launcher>(){}[0]
+    final val latestException // com.skydoves.snitcher/Snitcher.latestException|{}latestException[0]
+        final fun <get-latestException>(): com.skydoves.snitcher.model/SnitcherException? // com.skydoves.snitcher/Snitcher.latestException.<get-latestException>|<get-latestException>(){}[0]
 
     final var isDebuggable // com.skydoves.snitcher/Snitcher.isDebuggable|{}isDebuggable[0]
         final fun <get-isDebuggable>(): kotlin/Boolean // com.skydoves.snitcher/Snitcher.isDebuggable.<get-isDebuggable>|<get-isDebuggable>(){}[0]

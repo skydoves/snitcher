@@ -18,6 +18,7 @@
 package com.skydoves.snitcher
 
 import com.skydoves.snitcher.model.SnitcherException
+import com.skydoves.snitcher.storage.SNITCHER_STORE_FILE_NAME
 import com.skydoves.snitcher.storage.SnitcherStore
 import com.skydoves.snitcher.ui.theme.SnitcherThemeConfig
 import kotlinx.cinterop.CFunction
@@ -38,15 +39,15 @@ import platform.UIKit.UIDevice
 import kotlin.experimental.ExperimentalNativeApi
 import kotlin.native.Platform
 import kotlin.native.setUnhandledExceptionHook
+import kotlin.native.terminateWithUnhandledException
 
 /**
  * Installs Snitcher on iOS, which records a crash and leaves the termination to the runtime.
  *
- * An unhandled Kotlin exception that reaches the Objective-C boundary always terminates the
- * process, so the crash cannot be displayed while it happens. Snitcher persists it synchronously
- * and publishes it through [Snitcher.exception] on the next launch, where you can present
- * [snitcherViewController] or your own screen. An exception that is only unhandled inside a
- * coroutine does not terminate the process, so it is published right away.
+ * An unhandled Kotlin exception terminates the process, so the crash cannot be displayed while it
+ * happens. Snitcher records it synchronously, leaves the termination to the runtime exactly as it
+ * would happen without Snitcher, and publishes the crash through [Snitcher.exception] on the next
+ * launch, where you can present `snitcherViewController` or your own screen.
  *
  * @param storageDirectory The directory that holds the persisted crash.
  * @param theme The theme that styles the pre-built screens.
@@ -72,7 +73,10 @@ public fun Snitcher.install(
   this.isDebuggable = Platform.isDebugBinary
 
   bind(
-    store = SnitcherStore(FileSystem.SYSTEM, storageDirectory.toPath().resolve(STORE_FILE_NAME)),
+    store = SnitcherStore(
+      FileSystem.SYSTEM,
+      storageDirectory.toPath().resolve(SNITCHER_STORE_FILE_NAME),
+    ),
     launcher = null,
     exceptionHandler = exceptionHandler,
   )
@@ -119,7 +123,15 @@ public fun Snitcher.install() {
 
 private val snitcherHook: (Throwable) -> Unit = { throwable ->
   Snitcher.capture(throwable = throwable, launcher = null)
-  previousHook?.invoke(throwable)
+
+  val previous = previousHook
+  if (previous != null) {
+    previous.invoke(throwable)
+  } else {
+    // the runtime terminates the process and writes a crash report when no hook is installed, and
+    // recording a crash must not take that away.
+    terminateWithUnhandledException(throwable)
+  }
 }
 
 private var hookInstalled = false
@@ -127,10 +139,11 @@ private var previousHook: ((Throwable) -> Unit)? = null
 private var objcHandlerInstalled = false
 private var previousObjcHandler: CPointer<CFunction<(NSException?) -> Unit>>? = null
 
-private const val STORE_FILE_NAME = "snitcher.json"
-
-private fun NSException.toSnitcherException(): SnitcherException {
-  val symbols = callStackSymbols.joinToString(separator = "\n") { it.toString() }
+internal fun NSException.toSnitcherException(): SnitcherException {
+  // callStackSymbols is only filled in once the exception was raised, and Objective-C hands back a
+  // nil where Kotlin expects a list, so it has to be read as nullable.
+  val callStack: List<*>? = callStackSymbols
+  val symbols = callStack?.joinToString(separator = "\n") { it.toString() }.orEmpty()
   val name = name.orEmpty()
   val reason = reason.orEmpty()
   return SnitcherException(

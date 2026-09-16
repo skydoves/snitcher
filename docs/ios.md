@@ -1,6 +1,42 @@
 # iOS
 
-Snitcher records a crash on iOS and leaves the termination to the runtime, because an unhandled Kotlin exception that reaches the Objective-C boundary always terminates the process. The crash is persisted synchronously and displayed on the launch that follows it.
+Snitcher records a crash on iOS and leaves the termination to the runtime, because an unhandled Kotlin exception terminates the process. The crash is written to disk synchronously and displayed on the launch that follows it.
+
+Snitcher keeps the runtime behaviour intact: when no other hook was installed, the recorded crash ends in `terminateWithUnhandledException`, which is exactly what happens without Snitcher, so the system still writes its own crash report. A hook that was installed before Snitcher is chained instead.
+
+## Set up the framework
+
+Add Snitcher to the shared module that your iOS app already links, and build a framework out of it:
+
+```kotlin
+kotlin {
+  listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
+    target.binaries.framework {
+      baseName = "Shared"
+      isStatic = true
+    }
+  }
+
+  sourceSets {
+    commonMain.dependencies {
+      implementation("com.github.skydoves:snitcher:2.0.0")
+    }
+  }
+}
+```
+
+Then add a run script build phase to the Xcode target, before the compile phase:
+
+```bash
+cd "$SRCROOT/.."
+./gradlew :shared:embedAndSignAppleFrameworkForXcode
+```
+
+The [demo-ios](https://github.com/skydoves/snitcher/tree/main/demo-ios) sample links the Snitcher framework directly instead, and its Xcode project is generated from `project.yml` with [xcodegen](https://github.com/yonaskolb/XcodeGen):
+
+```bash
+cd demo-ios && xcodegen generate
+```
 
 ## Install
 
@@ -80,7 +116,7 @@ The bundled controller renders the same Compose screens as the other platforms. 
 | Kind of crash | Captured |
 | --- | --- |
 | Unhandled Kotlin exception, including one crossing into Swift | yes, through `setUnhandledExceptionHook` |
-| Unhandled exception inside a coroutine | yes, and the process keeps running |
+| Unhandled exception inside a coroutine | yes, and the process terminates as it would without Snitcher |
 | Uncaught `NSException` raised by Swift or Objective-C | yes, through `NSSetUncaughtExceptionHandler` |
 | Swift runtime trap, such as `fatalError` or a nil force unwrap | no, it raises a signal |
 | Memory errors, `SIGSEGV`, `SIGABRT` | no, it raises a signal |

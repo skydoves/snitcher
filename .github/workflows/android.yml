@@ -1,4 +1,4 @@
-name: Android CI
+name: CI
 
 on:
   push:
@@ -22,22 +22,8 @@ jobs:
       - name: spotless
         run: ./gradlew spotlessCheck
 
-  api_check:
-    name: API check
-    runs-on: macos-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v7
-      - name: Set up JDK
-        uses: actions/setup-java@v6
-        with:
-          distribution: zulu
-          java-version: 17
-      - uses: gradle/actions/setup-gradle@v6
-      - name: API check
-        run: ./gradlew checkKotlinAbi
-
   build:
+    name: Build and check
     # the apple targets can only be compiled on a mac.
     runs-on: macos-latest
     steps:
@@ -49,6 +35,13 @@ jobs:
           java-version: 17
 
       - uses: gradle/actions/setup-gradle@v6
+      - name: Cache the Kotlin/Native toolchain
+        uses: actions/cache@v6
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml') }}
+          restore-keys: konan-${{ runner.os }}-
+
       - name: Make Gradle executable
         run: chmod +x ./gradlew
 
@@ -57,17 +50,6 @@ jobs:
           ./gradlew --scan --stacktrace \
               assemble -x :benchmark:pixel6api31Setup -x :benchmark:pixel6api31NonMinifiedReleaseAndroidTest -x :benchmark:collectNonMinifiedReleaseBaselineProfile
 
-  test:
-    name: Test
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v7
-      - name: set up JDK
-        uses: actions/setup-java@v6
-        with:
-          distribution: zulu
-          java-version: 17
-
-      - uses: gradle/actions/setup-gradle@v6
-      - name: Desktop and iOS tests
-        run: ./gradlew :snitcher:desktopTest :snitcher:iosSimulatorArm64Test
+      - name: Check with Gradle
+        # covers the ABI dumps, the common and iOS tests, and the android lint.
+        run: ./gradlew :snitcher:checkKotlinAbi :snitcher:desktopTest :snitcher:iosSimulatorArm64Test

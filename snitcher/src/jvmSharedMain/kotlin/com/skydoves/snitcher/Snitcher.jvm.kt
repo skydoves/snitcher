@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 skydoves
+ * Designed and developed by 2023 skydoves (Jaewoong Eum)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.skydoves.snitcher
 
-object Configuration {
-  const val compileSdk = 37
-  const val targetSdk = 37
-  const val minSdk = 23
-  const val majorVersion = 2
-  const val minorVersion = 0
-  const val patchVersion = 0
-  const val versionName = "$majorVersion.$minorVersion.$patchVersion"
-  const val versionCode = 5
-  const val snapshotVersionName = "$majorVersion.$minorVersion.${patchVersion + 1}-SNAPSHOT"
-  const val artifactGroup = "com.github.skydoves"
+import com.skydoves.snitcher.model.SnitcherException
+import com.skydoves.snitcher.model.toThrowable
+
+/**
+ * Throws the captured exception again so that an attached debugger catches it, which is what the
+ * debug button of the trace screen does.
+ */
+public fun Snitcher.debug(exception: SnitcherException): Nothing {
+  isRethrowing = true
+  throw exception.toThrowable()
 }

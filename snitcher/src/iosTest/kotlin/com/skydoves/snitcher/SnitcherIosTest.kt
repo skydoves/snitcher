@@ -18,20 +18,25 @@
 package com.skydoves.snitcher
 
 import com.skydoves.snitcher.model.SnitcherException
+import platform.Foundation.NSException
 import platform.Foundation.NSTemporaryDirectory
 import kotlin.experimental.ExperimentalNativeApi
-import kotlin.native.processUnhandledException
+import kotlin.native.getUnhandledExceptionHook
 import kotlin.random.Random
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
 /**
- * Proves that the Kotlin/Native unhandled exception hook reaches Snitcher, which is the only way an
- * iOS application can record a crash before the runtime terminates the process.
+ * Covers the iOS installation, which is the only way an iOS application can record a crash before
+ * the runtime terminates the process.
+ *
+ * The hook itself is not invoked here on purpose. It ends in `terminateWithUnhandledException`,
+ * exactly as the runtime would without Snitcher, so running it would kill the test binary.
  */
 internal class SnitcherIosTest {
 
@@ -54,8 +59,26 @@ internal class SnitcherIosTest {
   }
 
   @Test
-  fun capturesAnUnhandledKotlinException() {
-    processUnhandledException(IllegalStateException("captured by the hook"))
+  fun installsTheUnhandledExceptionHook() {
+    assertNotNull(getUnhandledExceptionHook())
+  }
+
+  @Test
+  fun installingTwiceKeepsTheSameHook() {
+    val hook = assertNotNull(getUnhandledExceptionHook())
+
+    Snitcher.install(
+      storageDirectory = NSTemporaryDirectory() + "snitcher-test-" + Random.nextLong(),
+      catchObjectiveCExceptions = false,
+    )
+
+    // chaining Snitcher into itself would recurse until the stack dies.
+    assertSame(hook, getUnhandledExceptionHook())
+  }
+
+  @Test
+  fun capturesAKotlinException() {
+    Snitcher.capture(IllegalStateException("captured by the hook"), null)
 
     val exception = assertNotNull(Snitcher.exception.value)
     assertEquals("IllegalStateException", exception.packageName)
@@ -65,17 +88,30 @@ internal class SnitcherIosTest {
 
   @Test
   fun runsTheCustomExceptionHandler() {
-    processUnhandledException(RuntimeException("handled"))
+    Snitcher.capture(RuntimeException("handled"), null)
 
     assertEquals("handled", assertNotNull(handled).message)
   }
 
   @Test
   fun keepsTheCrashForTheNextLaunch() {
-    processUnhandledException(RuntimeException("persisted"))
+    Snitcher.capture(RuntimeException("persisted"), null)
 
     // a new installation reads the crash back, which is what happens on the launch after a crash.
     val storedException = assertNotNull(Snitcher.store?.read()?.snitcherException)
     assertEquals("persisted", storedException.message)
+  }
+
+  @Test
+  fun capturesAnObjectiveCException() {
+    val exception = NSException.exceptionWithName(
+      name = "RuntimeException",
+      reason = "raised by Objective-C",
+      userInfo = null,
+    ).toSnitcherException()
+
+    assertEquals("RuntimeException", exception.packageName)
+    assertEquals("raised by Objective-C", exception.message)
+    assertTrue(exception.stackTrace.contains("RuntimeException"))
   }
 }

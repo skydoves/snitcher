@@ -21,6 +21,7 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.os.Build
+import com.skydoves.snitcher.Snitcher
 
 @JvmSynthetic
 internal fun Context.findActivity(): Activity? {
@@ -54,6 +55,9 @@ internal fun Context.restoreApp(launcher: String) {
   if (launcher.isEmpty()) {
     return
   }
+
+  // the crash was handled, so it must not be displayed again on the next launch.
+  Snitcher.clear()
 
   startActivity(
     Intent().setClassName(this, launcher).apply {

@@ -63,6 +63,36 @@ public data class SnitcherColor(
       background = Color.Black,
       textHighEmphasis = Color.White,
     )
+
+    /**
+     * Builds a palette out of ARGB values, such as `0xFF28A9F1`.
+     *
+     * [Color] is a Kotlin value class that Objective-C and Swift cannot construct, so this is the
+     * entry point for them. Pass [UNSPECIFIED] to let a color follow the one it belongs to.
+     *
+     * @return A [SnitcherColor] instance holding the given colors.
+     */
+    public fun fromArgb(
+      primary: Long,
+      background: Long,
+      textHighEmphasis: Long,
+      onPrimary: Long = 0xFFFFFFFF,
+      textLowEmphasis: Long = UNSPECIFIED,
+      outline: Long = UNSPECIFIED,
+    ): SnitcherColor = SnitcherColor(
+      primary = Color(primary),
+      background = Color(background),
+      textHighEmphasis = Color(textHighEmphasis),
+      onPrimary = Color(onPrimary),
+      textLowEmphasis = textLowEmphasis.toColorOrUnspecified(),
+      outline = outline.toColorOrUnspecified(),
+    )
+
+    /** Marks a color of [fromArgb] as unspecified, so that it follows the color it belongs to. */
+    public const val UNSPECIFIED: Long = -1L
+
+    private fun Long.toColorOrUnspecified(): Color =
+      if (this == UNSPECIFIED) Color.Unspecified else Color(this)
   }
 }
 

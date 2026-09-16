@@ -23,6 +23,7 @@ import com.skydoves.snitcher.model.SnitcherException
 import com.skydoves.snitcher.model.SnitcherPreference
 import com.skydoves.snitcher.storage.SnitcherStore
 import com.skydoves.snitcher.ui.theme.SnitcherThemeConfig
+import com.skydoves.snitcher.ui.theme.resolved
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,16 +43,32 @@ public object Snitcher {
   /** Represents the state flow of the most recent [SnitcherException] encountered by an application. */
   public val exception: StateFlow<SnitcherException?> = _exception.asStateFlow()
 
-  private val _launcher: MutableStateFlow<String> = MutableStateFlow("")
+  /**
+   * The most recent [SnitcherException], or null when the application did not crash. It is the
+   * typed counterpart of `exception.value`, which Objective-C and Swift only see as `Any?`.
+   */
+  public val latestException: SnitcherException?
+    get() = _exception.value
 
   /**
-   * Depicts the state flow of the launcher that will be started when your application is recovered
-   * from the exception tracing screen. It is only meaningful on Android.
+   * The launcher that will be started when your application is recovered from the exception tracing
+   * screen. It only exists on Android, which is the only platform that can relaunch an application,
+   * and the Android source set exposes it as `Snitcher.launcher`.
    */
-  public val launcher: StateFlow<String> = _launcher.asStateFlow()
+  internal val launcherFlow: MutableStateFlow<String> = MutableStateFlow("")
 
-  /** The theme that styles the pre-built Snitcher screens. */
-  public var theme: SnitcherThemeConfig by mutableStateOf(SnitcherThemeConfig())
+  private var themeConfig: SnitcherThemeConfig by mutableStateOf(SnitcherThemeConfig().resolved())
+
+  /**
+   * The theme that styles the pre-built Snitcher screens. Colors that were left unspecified are
+   * resolved to the color they follow when the theme is assigned, so readers never meet
+   * [androidx.compose.ui.graphics.Color.Unspecified].
+   */
+  public var theme: SnitcherThemeConfig
+    get() = themeConfig
+    set(value) {
+      themeConfig = value.resolved()
+    }
 
   /** The texts that are displayed by the pre-built Snitcher screens. */
   public var strings: SnitcherStrings by mutableStateOf(SnitcherStrings())
@@ -68,7 +85,7 @@ public object Snitcher {
    */
   public var isDebuggable: Boolean by mutableStateOf(true)
 
-  /** Whether [install] was already called on this platform. */
+  /** Whether the platform installer was already called. */
   public val isInstalled: Boolean
     get() = store != null
 
@@ -78,11 +95,17 @@ public object Snitcher {
   internal var exceptionHandler: (SnitcherException) -> Unit = {}
     private set
 
+  /**
+   * Whether the exception that is about to arrive was thrown again on purpose, by the debug action
+   * of the trace screen, in which case it must not replace the crash that is already recorded.
+   */
+  internal var isRethrowing: Boolean = false
+
   /** Removes the persisted crash, so that it is not displayed again on the next launch. */
   public fun clear() {
     store?.clear()
     _exception.value = null
-    _launcher.value = ""
+    launcherFlow.value = ""
   }
 
   internal fun bind(
@@ -96,9 +119,9 @@ public object Snitcher {
     val preference = store.read()
     if (preference != null) {
       _exception.value = preference.snitcherException
-      _launcher.value = preference.launcher.orEmpty()
+      launcherFlow.value = preference.launcher.orEmpty()
     } else if (launcher != null) {
-      _launcher.value = launcher
+      launcherFlow.value = launcher
     }
   }
 
@@ -113,12 +136,12 @@ public object Snitcher {
    * Persists an already built [exception] synchronously and runs the custom exception handler.
    */
   internal fun capture(exception: SnitcherException, launcher: String?): SnitcherException {
-    val resolvedLauncher = launcher ?: _launcher.value.takeIf { it.isNotEmpty() }
+    val resolvedLauncher = launcher ?: launcherFlow.value.takeIf { it.isNotEmpty() }
 
     store?.write(SnitcherPreference(snitcherException = exception, launcher = resolvedLauncher))
     _exception.value = exception
     if (resolvedLauncher != null) {
-      _launcher.value = resolvedLauncher
+      launcherFlow.value = resolvedLauncher
     }
 
     runCatching { exceptionHandler.invoke(exception) }

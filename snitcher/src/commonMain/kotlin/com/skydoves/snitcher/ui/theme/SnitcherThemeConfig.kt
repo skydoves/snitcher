@@ -55,3 +55,12 @@ public data class SnitcherThemeConfig(
     public fun defaultThemeConfig(): SnitcherThemeConfig = SnitcherThemeConfig()
   }
 }
+
+/**
+ * Resolves the colors that were left unspecified, so that a palette handed to the screens, or read
+ * back from [Snitcher.theme], always carries concrete colors.
+ */
+internal fun SnitcherThemeConfig.resolved(): SnitcherThemeConfig = copy(
+  lightColors = lightColors.resolveUnspecified(),
+  darkColors = darkColors.resolveUnspecified(),
+)
