@@ -17,9 +17,9 @@
 package com.skydoves.snitcher
 
 object Configuration {
-  const val compileSdk = 34
-  const val targetSdk = 34
-  const val minSdk = 21
+  const val compileSdk = 37
+  const val targetSdk = 37
+  const val minSdk = 23
   const val majorVersion = 1
   const val minorVersion = 0
   const val patchVersion = 3

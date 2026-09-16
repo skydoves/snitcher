@@ -1,9 +1,9 @@
 import com.skydoves.snitcher.Configuration
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
   id(libs.plugins.android.test.get().pluginId)
-  id(libs.plugins.kotlin.android.get().pluginId)
   id(libs.plugins.baseline.profile.get().pluginId)
 }
 
@@ -16,10 +16,6 @@ android {
     targetCompatibility = JavaVersion.VERSION_11
   }
 
-  kotlinOptions {
-    jvmTarget = libs.versions.jvmTarget.get()
-  }
-
   defaultConfig {
     minSdk = 24
     targetSdk = Configuration.targetSdk
@@ -28,12 +24,16 @@ android {
 
   targetProjectPath = ":demo"
 
-  testOptions.managedDevices.devices {
-    maybeCreate<com.android.build.api.dsl.ManagedVirtualDevice>("pixel6api31").apply {
-      device = "Pixel 6"
-      apiLevel = 31
-      systemImageSource = "aosp"
-    }
+  testOptions.managedDevices.localDevices.create("pixel6api31") {
+    device = "Pixel 6"
+    apiLevel = 31
+    systemImageSource = "aosp"
+  }
+}
+
+kotlin {
+  compilerOptions {
+    jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvmTarget.get()))
   }
 }
 

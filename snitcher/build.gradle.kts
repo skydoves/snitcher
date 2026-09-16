@@ -13,12 +13,13 @@
 // limitations under the License.
 
 import com.skydoves.snitcher.Configuration
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   id(libs.plugins.android.library.get().pluginId)
-  id(libs.plugins.kotlin.android.get().pluginId)
   id(libs.plugins.kotlin.serialization.get().pluginId)
+  id(libs.plugins.compose.compiler.get().pluginId)
   id(libs.plugins.nexus.plugin.get().pluginId)
   id(libs.plugins.baseline.profile.get().pluginId)
 }
@@ -51,16 +52,8 @@ android {
     targetCompatibility = JavaVersion.VERSION_11
   }
 
-  kotlinOptions {
-    jvmTarget = libs.versions.jvmTarget.get()
-  }
-
   buildFeatures {
     compose = true
-  }
-
-  composeOptions {
-    kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
   }
 
   resourcePrefix = "snitcher"
@@ -70,10 +63,16 @@ android {
   }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-  kotlinOptions.freeCompilerArgs += listOf(
-    "-Xexplicit-api=strict"
-  )
+kotlin {
+  @OptIn(org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation::class)
+  abiValidation {
+    referenceDumpDir.set(layout.projectDirectory.dir("api"))
+  }
+
+  compilerOptions {
+    jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvmTarget.get()))
+    freeCompilerArgs.add("-Xexplicit-api=strict")
+  }
 }
 
 tasks.withType(JavaCompile::class.java).configureEach {

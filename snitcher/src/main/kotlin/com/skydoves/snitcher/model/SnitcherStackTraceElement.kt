@@ -26,16 +26,14 @@ public data class SnitcherStackTraceElement(
 )
 
 @JvmSynthetic
-internal fun StackTraceElement.toSnitcherElement(): SnitcherStackTraceElement {
-  return SnitcherStackTraceElement(
+internal fun StackTraceElement.toSnitcherElement(): SnitcherStackTraceElement =
+  SnitcherStackTraceElement(
     fileName = "",
     lineNumber = lineNumber,
     className = className,
     methodName = methodName,
   )
-}
 
 @JvmSynthetic
-internal fun SnitcherStackTraceElement.toStackTraceElement(): StackTraceElement {
-  return StackTraceElement(className, methodName, fileName, lineNumber)
-}
+internal fun SnitcherStackTraceElement.toStackTraceElement(): StackTraceElement =
+  StackTraceElement(className, methodName, fileName, lineNumber)

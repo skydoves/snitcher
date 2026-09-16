@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.RestartAlt
@@ -39,24 +40,21 @@ import com.skydoves.snitcher.ui.theme.SnitcherStatusBarColor
 import com.skydoves.snitcher.ui.theme.SnitcherTheme
 
 @Composable
-public fun AppRestoreScreen(
-  launcher: String,
-) {
+public fun AppRestoreScreen(launcher: String) {
   SnitcherStatusBarColor()
 
   AppRestoreScreenContent(packageName = launcher)
 }
 
 @Composable
-private fun AppRestoreScreenContent(
-  packageName: String,
-) {
+private fun AppRestoreScreenContent(packageName: String) {
   val context = LocalContext.current
 
   Column(
     modifier = Modifier
       .fillMaxSize()
       .background(SnitcherTheme.colors.background)
+      .systemBarsPadding()
       .padding(32.dp),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally,

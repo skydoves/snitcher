@@ -62,7 +62,7 @@ public class Snitcher(
   private val traceActivityClass: KClass<*>,
   private val traceStrategy: TraceStrategy,
   private val defaultExceptionHandler: Thread.UncaughtExceptionHandler,
-  private inline val exceptionHandler: suspend (SnitcherException) -> Unit,
+  private val exceptionHandler: suspend (SnitcherException) -> Unit,
 ) : Thread.UncaughtExceptionHandler {
 
   private val dataStore: SnitcherDataStore = run {
