@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v6
         with:
           distribution: zulu
           java-version: 17
-      - uses: gradle/gradle-build-action@v2.7.1
+      - uses: gradle/actions/setup-gradle@v6
       - name: spotless
         run: ./gradlew spotlessCheck
 
@@ -27,27 +27,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v6
         with:
           distribution: zulu
           java-version: 17
-      - uses: gradle/gradle-build-action@v2.7.1
+      - uses: gradle/actions/setup-gradle@v6
       - name: API check
-        run: ./gradlew apiCheck
+        run: ./gradlew checkKotlinAbi
 
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
       - name: set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v6
         with:
           distribution: zulu
           java-version: 17
 
-      - uses: gradle/gradle-build-action@v2.7.1
+      - uses: gradle/actions/setup-gradle@v6
       - name: Make Gradle executable
         run: chmod +x ./gradlew
 

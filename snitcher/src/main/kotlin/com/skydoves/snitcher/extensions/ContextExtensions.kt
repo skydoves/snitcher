@@ -38,19 +38,16 @@ internal fun Context.findActivity(): Activity? {
 }
 
 @JvmSynthetic
-internal fun Context.packageInfo(): PackageInfo? {
-  return try {
-    packageManager.getPackageInfo(packageName, 0)
-  } catch (e: Exception) {
-    null
-  }
+internal fun Context.packageInfo(): PackageInfo? = try {
+  packageManager.getPackageInfo(packageName, 0)
+} catch (e: Exception) {
+  null
 }
 
 @JvmSynthetic
-internal fun PackageInfo?.versionCode(): Long? {
-  return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+internal fun PackageInfo?.versionCode(): Long? =
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
     this?.longVersionCode
   } else {
     this?.versionCode?.toLong()
   }
-}

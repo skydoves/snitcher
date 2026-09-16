@@ -32,21 +32,20 @@ class BaselineProfileGenerator {
   val baselineProfileRule = BaselineProfileRule()
 
   @Test
-  fun startup() =
-    baselineProfileRule.collect(
-      packageName = packageName,
-      stableIterations = 2,
-      maxIterations = 8,
-    ) {
-      pressHome()
-      // This block defines the app's critical user journey. Here we are interested in
-      // optimizing for app startup. But you can also navigate and scroll
-      // through your most important UI.
-      startActivityAndWait()
-      device.waitForIdle()
+  fun startup() = baselineProfileRule.collect(
+    packageName = PACKAGE_NAME,
+    stableIterations = 2,
+    maxIterations = 8,
+  ) {
+    pressHome()
+    // This block defines the app's critical user journey. Here we are interested in
+    // optimizing for app startup. But you can also navigate and scroll
+    // through your most important UI.
+    startActivityAndWait()
+    device.waitForIdle()
 
-      device.testSnitcherScenario() || return@collect
-    }
+    device.testSnitcherScenario() || return@collect
+  }
 }
 
 private fun UiDevice.testSnitcherScenario(): Boolean {
@@ -69,4 +68,4 @@ private fun UiDevice.waitForObject(selector: BySelector, timeout: Long = 5_000):
   error("Object with selector [$selector] not found")
 }
 
-private const val packageName = "com.skydoves.snitcherdemo"
+private const val PACKAGE_NAME = "com.skydoves.snitcherdemo"

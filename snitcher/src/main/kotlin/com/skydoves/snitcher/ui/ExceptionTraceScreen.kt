@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -60,10 +61,7 @@ import com.skydoves.snitcher.ui.theme.SnitcherStatusBarColor
 import com.skydoves.snitcher.ui.theme.SnitcherTheme
 
 @Composable
-public fun ExceptionTraceScreen(
-  launcher: String,
-  snitcherException: SnitcherException,
-) {
+public fun ExceptionTraceScreen(launcher: String, snitcherException: SnitcherException) {
   SnitcherStatusBarColor()
 
   ExceptionTraceScreenContent(
@@ -84,6 +82,7 @@ private fun ExceptionTraceScreenContent(
   Column(
     modifier = Modifier
       .background(SnitcherTheme.colors.background)
+      .systemBarsPadding()
       .verticalScroll(scrollState)
       .padding(16.dp)
       .testTag("exception_trace_screen"),

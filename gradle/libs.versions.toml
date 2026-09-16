@@ -1,35 +1,32 @@
 [versions]
-agp = "8.1.2"
-dokka = "1.9.0"
-nexusPlugin = "0.25.3"
-kotlin = "1.9.10"
-kotlinBinaryCompatibility = "0.13.2"
-kotlinSerialization = "1.6.0"
+agp = "9.4.0"
+dokka = "2.2.0"
+nexusPlugin = "0.37.0"
+kotlin = "2.4.20"
+kotlinSerialization = "1.11.0"
 jvmTarget = "11"
-androidxComposeBom = "2023.09.02"
-androidxComposeCompiler = "1.5.3"
-androidxComposeConstraintLayout = "1.0.1"
-androidxActivity = "1.7.2"
-androidxTest = "1.5.2"
-androidxDataStore = "1.0.0"
-coroutines = "1.7.3"
-accompanist = "0.31.6-rc"
-baselineProfiles = "1.3.1"
-uiAutomator = "2.3.0-alpha04"
-spotless = "6.21.0"
-junit = "1.1.5"
-espresso-core = "3.5.1"
-androidxMacroBenchmark = "1.2.0-beta05"
+androidxComposeBom = "2026.09.00"
+androidxComposeConstraintLayout = "1.1.2"
+androidxActivity = "1.13.0"
+androidxTest = "1.7.0"
+androidxDataStore = "1.2.1"
+coroutines = "1.11.0"
+accompanist = "0.36.0"
+baselineProfiles = "1.4.1"
+uiAutomator = "2.4.0"
+spotless = "8.10.2"
+junit = "1.3.0"
+espresso-core = "3.7.0"
+androidxMacroBenchmark = "1.5.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 nexus-plugin = { id = "com.vanniktech.maven.publish", version.ref = "nexusPlugin" }
-kotlin-binary-compatibility = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinBinaryCompatibility" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 baseline-profile = { id = "androidx.baselineprofile", version.ref = "androidxMacroBenchmark" }
 
