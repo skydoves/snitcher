@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  spotless:
+    name: Spotless check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Spotless
+        run: ./gradlew spotlessCheck
+
+  build:
+    name: Build and test
+    # every target is built in one job, on a mac, because the apple targets cannot be built anywhere else.
+    runs-on: macos-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Cache the Kotlin/Native toolchain
+        uses: actions/cache@v6
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml') }}
+          restore-keys: konan-${{ runner.os }}-
+
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+
+      - name: Android library, demo and benchmark
+        run: |
+          ./gradlew --stacktrace \
+              :snitcher:assemble :demo:assembleDebug :benchmark:assembleBenchmarkRelease
+
+      - name: Desktop library and demo
+        run: ./gradlew --stacktrace :snitcher:desktopJar :demo-desktop:assemble
+
+      - name: iOS frameworks
+        run: |
+          ./gradlew --stacktrace \
+              :snitcher:linkDebugFrameworkIosSimulatorArm64 \
+              :snitcher:linkReleaseFrameworkIosArm64
+
+      - name: Binary compatibility
+        run: ./gradlew checkKotlinAbi
+
+      - name: Tests
+        run: |
+          ./gradlew --stacktrace \
+              :snitcher:testAndroidHostTest \
+              :snitcher:desktopTest \
+              :snitcher:iosSimulatorArm64Test
+
+  ios_sample:
+    name: iOS sample
+    runs-on: macos-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Cache the Kotlin/Native toolchain
+        uses: actions/cache@v6
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml') }}
+          restore-keys: konan-${{ runner.os }}-
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Generate the Xcode project
+        working-directory: demo-ios
+        run: xcodegen generate
+
+      - name: Build the sample
+        run: |
+          xcodebuild -project demo-ios/SnitcherDemo.xcodeproj \
+              -scheme SnitcherDemo \
+              -sdk iphonesimulator \
+              -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+              build
