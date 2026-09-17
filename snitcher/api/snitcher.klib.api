@@ -1,0 +1,300 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <SnitcherDemo:snitcher>
+final class com.skydoves.snitcher.model/SnitcherException { // com.skydoves.snitcher.model/SnitcherException|null[0]
+    constructor <init>(kotlin/Long, kotlin/String, kotlin/String, kotlin/String, kotlin/String, kotlin.collections/List<com.skydoves.snitcher.model/SnitcherStackTraceElement> = ...) // com.skydoves.snitcher.model/SnitcherException.<init>|<init>(kotlin.Long;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.collections.List<com.skydoves.snitcher.model.SnitcherStackTraceElement>){}[0]
+
+    final val message // com.skydoves.snitcher.model/SnitcherException.message|{}message[0]
+        final fun <get-message>(): kotlin/String // com.skydoves.snitcher.model/SnitcherException.message.<get-message>|<get-message>(){}[0]
+    final val packageName // com.skydoves.snitcher.model/SnitcherException.packageName|{}packageName[0]
+        final fun <get-packageName>(): kotlin/String // com.skydoves.snitcher.model/SnitcherException.packageName.<get-packageName>|<get-packageName>(){}[0]
+    final val stackTrace // com.skydoves.snitcher.model/SnitcherException.stackTrace|{}stackTrace[0]
+        final fun <get-stackTrace>(): kotlin/String // com.skydoves.snitcher.model/SnitcherException.stackTrace.<get-stackTrace>|<get-stackTrace>(){}[0]
+    final val stackTraceElement // com.skydoves.snitcher.model/SnitcherException.stackTraceElement|{}stackTraceElement[0]
+        final fun <get-stackTraceElement>(): kotlin.collections/List<com.skydoves.snitcher.model/SnitcherStackTraceElement> // com.skydoves.snitcher.model/SnitcherException.stackTraceElement.<get-stackTraceElement>|<get-stackTraceElement>(){}[0]
+    final val threadId // com.skydoves.snitcher.model/SnitcherException.threadId|{}threadId[0]
+        final fun <get-threadId>(): kotlin/Long // com.skydoves.snitcher.model/SnitcherException.threadId.<get-threadId>|<get-threadId>(){}[0]
+    final val threadName // com.skydoves.snitcher.model/SnitcherException.threadName|{}threadName[0]
+        final fun <get-threadName>(): kotlin/String // com.skydoves.snitcher.model/SnitcherException.threadName.<get-threadName>|<get-threadName>(){}[0]
+
+    final fun component1(): kotlin/Long // com.skydoves.snitcher.model/SnitcherException.component1|component1(){}[0]
+    final fun component2(): kotlin/String // com.skydoves.snitcher.model/SnitcherException.component2|component2(){}[0]
+    final fun component3(): kotlin/String // com.skydoves.snitcher.model/SnitcherException.component3|component3(){}[0]
+    final fun component4(): kotlin/String // com.skydoves.snitcher.model/SnitcherException.component4|component4(){}[0]
+    final fun component5(): kotlin/String // com.skydoves.snitcher.model/SnitcherException.component5|component5(){}[0]
+    final fun component6(): kotlin.collections/List<com.skydoves.snitcher.model/SnitcherStackTraceElement> // com.skydoves.snitcher.model/SnitcherException.component6|component6(){}[0]
+    final fun copy(kotlin/Long = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin.collections/List<com.skydoves.snitcher.model/SnitcherStackTraceElement> = ...): com.skydoves.snitcher.model/SnitcherException // com.skydoves.snitcher.model/SnitcherException.copy|copy(kotlin.Long;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.collections.List<com.skydoves.snitcher.model.SnitcherStackTraceElement>){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.skydoves.snitcher.model/SnitcherException.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.skydoves.snitcher.model/SnitcherException.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.skydoves.snitcher.model/SnitcherException.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<com.skydoves.snitcher.model/SnitcherException> { // com.skydoves.snitcher.model/SnitcherException.$serializer|null[0]
+        final val descriptor // com.skydoves.snitcher.model/SnitcherException.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // com.skydoves.snitcher.model/SnitcherException.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // com.skydoves.snitcher.model/SnitcherException.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): com.skydoves.snitcher.model/SnitcherException // com.skydoves.snitcher.model/SnitcherException.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, com.skydoves.snitcher.model/SnitcherException) // com.skydoves.snitcher.model/SnitcherException.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;com.skydoves.snitcher.model.SnitcherException){}[0]
+    }
+
+    final object Companion { // com.skydoves.snitcher.model/SnitcherException.Companion|null[0]
+        final val $childSerializers // com.skydoves.snitcher.model/SnitcherException.Companion.$childSerializers|{}$childSerializers[0]
+
+        final fun serializer(): kotlinx.serialization/KSerializer<com.skydoves.snitcher.model/SnitcherException> // com.skydoves.snitcher.model/SnitcherException.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class com.skydoves.snitcher.model/SnitcherStackTraceElement { // com.skydoves.snitcher.model/SnitcherStackTraceElement|null[0]
+    constructor <init>(kotlin/String, kotlin/Int, kotlin/String, kotlin/String) // com.skydoves.snitcher.model/SnitcherStackTraceElement.<init>|<init>(kotlin.String;kotlin.Int;kotlin.String;kotlin.String){}[0]
+
+    final val className // com.skydoves.snitcher.model/SnitcherStackTraceElement.className|{}className[0]
+        final fun <get-className>(): kotlin/String // com.skydoves.snitcher.model/SnitcherStackTraceElement.className.<get-className>|<get-className>(){}[0]
+    final val fileName // com.skydoves.snitcher.model/SnitcherStackTraceElement.fileName|{}fileName[0]
+        final fun <get-fileName>(): kotlin/String // com.skydoves.snitcher.model/SnitcherStackTraceElement.fileName.<get-fileName>|<get-fileName>(){}[0]
+    final val lineNumber // com.skydoves.snitcher.model/SnitcherStackTraceElement.lineNumber|{}lineNumber[0]
+        final fun <get-lineNumber>(): kotlin/Int // com.skydoves.snitcher.model/SnitcherStackTraceElement.lineNumber.<get-lineNumber>|<get-lineNumber>(){}[0]
+    final val methodName // com.skydoves.snitcher.model/SnitcherStackTraceElement.methodName|{}methodName[0]
+        final fun <get-methodName>(): kotlin/String // com.skydoves.snitcher.model/SnitcherStackTraceElement.methodName.<get-methodName>|<get-methodName>(){}[0]
+
+    final fun component1(): kotlin/String // com.skydoves.snitcher.model/SnitcherStackTraceElement.component1|component1(){}[0]
+    final fun component2(): kotlin/Int // com.skydoves.snitcher.model/SnitcherStackTraceElement.component2|component2(){}[0]
+    final fun component3(): kotlin/String // com.skydoves.snitcher.model/SnitcherStackTraceElement.component3|component3(){}[0]
+    final fun component4(): kotlin/String // com.skydoves.snitcher.model/SnitcherStackTraceElement.component4|component4(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/Int = ..., kotlin/String = ..., kotlin/String = ...): com.skydoves.snitcher.model/SnitcherStackTraceElement // com.skydoves.snitcher.model/SnitcherStackTraceElement.copy|copy(kotlin.String;kotlin.Int;kotlin.String;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.skydoves.snitcher.model/SnitcherStackTraceElement.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.skydoves.snitcher.model/SnitcherStackTraceElement.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.skydoves.snitcher.model/SnitcherStackTraceElement.toString|toString(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<com.skydoves.snitcher.model/SnitcherStackTraceElement> { // com.skydoves.snitcher.model/SnitcherStackTraceElement.$serializer|null[0]
+        final val descriptor // com.skydoves.snitcher.model/SnitcherStackTraceElement.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // com.skydoves.snitcher.model/SnitcherStackTraceElement.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // com.skydoves.snitcher.model/SnitcherStackTraceElement.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): com.skydoves.snitcher.model/SnitcherStackTraceElement // com.skydoves.snitcher.model/SnitcherStackTraceElement.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, com.skydoves.snitcher.model/SnitcherStackTraceElement) // com.skydoves.snitcher.model/SnitcherStackTraceElement.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;com.skydoves.snitcher.model.SnitcherStackTraceElement){}[0]
+    }
+
+    final object Companion { // com.skydoves.snitcher.model/SnitcherStackTraceElement.Companion|null[0]
+        final fun serializer(): kotlinx.serialization/KSerializer<com.skydoves.snitcher.model/SnitcherStackTraceElement> // com.skydoves.snitcher.model/SnitcherStackTraceElement.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final class com.skydoves.snitcher.ui.theme/SnitcherColor { // com.skydoves.snitcher.ui.theme/SnitcherColor|null[0]
+    constructor <init>(androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color, androidx.compose.ui.graphics/Color = ..., androidx.compose.ui.graphics/Color = ..., androidx.compose.ui.graphics/Color = ...) // com.skydoves.snitcher.ui.theme/SnitcherColor.<init>|<init>(androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color){}[0]
+
+    final val background // com.skydoves.snitcher.ui.theme/SnitcherColor.background|{}background[0]
+        final fun <get-background>(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.background.<get-background>|<get-background>(){}[0]
+    final val onPrimary // com.skydoves.snitcher.ui.theme/SnitcherColor.onPrimary|{}onPrimary[0]
+        final fun <get-onPrimary>(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.onPrimary.<get-onPrimary>|<get-onPrimary>(){}[0]
+    final val outline // com.skydoves.snitcher.ui.theme/SnitcherColor.outline|{}outline[0]
+        final fun <get-outline>(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.outline.<get-outline>|<get-outline>(){}[0]
+    final val primary // com.skydoves.snitcher.ui.theme/SnitcherColor.primary|{}primary[0]
+        final fun <get-primary>(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.primary.<get-primary>|<get-primary>(){}[0]
+    final val textHighEmphasis // com.skydoves.snitcher.ui.theme/SnitcherColor.textHighEmphasis|{}textHighEmphasis[0]
+        final fun <get-textHighEmphasis>(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.textHighEmphasis.<get-textHighEmphasis>|<get-textHighEmphasis>(){}[0]
+    final val textLowEmphasis // com.skydoves.snitcher.ui.theme/SnitcherColor.textLowEmphasis|{}textLowEmphasis[0]
+        final fun <get-textLowEmphasis>(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.textLowEmphasis.<get-textLowEmphasis>|<get-textLowEmphasis>(){}[0]
+
+    final fun component1(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.component1|component1(){}[0]
+    final fun component2(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.component2|component2(){}[0]
+    final fun component3(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.component3|component3(){}[0]
+    final fun component4(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.component4|component4(){}[0]
+    final fun component5(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.component5|component5(){}[0]
+    final fun component6(): androidx.compose.ui.graphics/Color // com.skydoves.snitcher.ui.theme/SnitcherColor.component6|component6(){}[0]
+    final fun copy(androidx.compose.ui.graphics/Color = ..., androidx.compose.ui.graphics/Color = ..., androidx.compose.ui.graphics/Color = ..., androidx.compose.ui.graphics/Color = ..., androidx.compose.ui.graphics/Color = ..., androidx.compose.ui.graphics/Color = ...): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherColor.copy|copy(androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color;androidx.compose.ui.graphics.Color){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.skydoves.snitcher.ui.theme/SnitcherColor.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.skydoves.snitcher.ui.theme/SnitcherColor.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.skydoves.snitcher.ui.theme/SnitcherColor.toString|toString(){}[0]
+
+    final object Companion { // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion|null[0]
+        final const val UNSPECIFIED // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.UNSPECIFIED|{}UNSPECIFIED[0]
+            final fun <get-UNSPECIFIED>(): kotlin/Long // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.UNSPECIFIED.<get-UNSPECIFIED>|<get-UNSPECIFIED>(){}[0]
+
+        final fun defaultColors(): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.defaultColors|defaultColors(){}[0]
+        final fun defaultDarkColors(): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.defaultDarkColors|defaultDarkColors(){}[0]
+        final fun fromArgb(kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long = ..., kotlin/Long = ..., kotlin/Long = ...): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherColor.Companion.fromArgb|fromArgb(kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long){}[0]
+    }
+}
+
+final class com.skydoves.snitcher.ui.theme/SnitcherShapes { // com.skydoves.snitcher.ui.theme/SnitcherShapes|null[0]
+    constructor <init>(androidx.compose.ui.graphics/Shape = ..., androidx.compose.ui.graphics/Shape = ...) // com.skydoves.snitcher.ui.theme/SnitcherShapes.<init>|<init>(androidx.compose.ui.graphics.Shape;androidx.compose.ui.graphics.Shape){}[0]
+
+    final val button // com.skydoves.snitcher.ui.theme/SnitcherShapes.button|{}button[0]
+        final fun <get-button>(): androidx.compose.ui.graphics/Shape // com.skydoves.snitcher.ui.theme/SnitcherShapes.button.<get-button>|<get-button>(){}[0]
+    final val stacktrace // com.skydoves.snitcher.ui.theme/SnitcherShapes.stacktrace|{}stacktrace[0]
+        final fun <get-stacktrace>(): androidx.compose.ui.graphics/Shape // com.skydoves.snitcher.ui.theme/SnitcherShapes.stacktrace.<get-stacktrace>|<get-stacktrace>(){}[0]
+
+    final fun component1(): androidx.compose.ui.graphics/Shape // com.skydoves.snitcher.ui.theme/SnitcherShapes.component1|component1(){}[0]
+    final fun component2(): androidx.compose.ui.graphics/Shape // com.skydoves.snitcher.ui.theme/SnitcherShapes.component2|component2(){}[0]
+    final fun copy(androidx.compose.ui.graphics/Shape = ..., androidx.compose.ui.graphics/Shape = ...): com.skydoves.snitcher.ui.theme/SnitcherShapes // com.skydoves.snitcher.ui.theme/SnitcherShapes.copy|copy(androidx.compose.ui.graphics.Shape;androidx.compose.ui.graphics.Shape){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.skydoves.snitcher.ui.theme/SnitcherShapes.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.skydoves.snitcher.ui.theme/SnitcherShapes.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.skydoves.snitcher.ui.theme/SnitcherShapes.toString|toString(){}[0]
+
+    final object Companion { // com.skydoves.snitcher.ui.theme/SnitcherShapes.Companion|null[0]
+        final fun defaultShapes(): com.skydoves.snitcher.ui.theme/SnitcherShapes // com.skydoves.snitcher.ui.theme/SnitcherShapes.Companion.defaultShapes|defaultShapes(){}[0]
+    }
+}
+
+final class com.skydoves.snitcher.ui.theme/SnitcherThemeConfig { // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig|null[0]
+    constructor <init>(com.skydoves.snitcher.ui.theme/SnitcherColor = ..., com.skydoves.snitcher.ui.theme/SnitcherColor = ..., com.skydoves.snitcher.ui.theme/SnitcherTypography = ..., com.skydoves.snitcher.ui.theme/SnitcherShapes = ...) // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.<init>|<init>(com.skydoves.snitcher.ui.theme.SnitcherColor;com.skydoves.snitcher.ui.theme.SnitcherColor;com.skydoves.snitcher.ui.theme.SnitcherTypography;com.skydoves.snitcher.ui.theme.SnitcherShapes){}[0]
+
+    final val darkColors // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.darkColors|{}darkColors[0]
+        final fun <get-darkColors>(): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.darkColors.<get-darkColors>|<get-darkColors>(){}[0]
+    final val lightColors // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.lightColors|{}lightColors[0]
+        final fun <get-lightColors>(): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.lightColors.<get-lightColors>|<get-lightColors>(){}[0]
+    final val shapes // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.shapes|{}shapes[0]
+        final fun <get-shapes>(): com.skydoves.snitcher.ui.theme/SnitcherShapes // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.shapes.<get-shapes>|<get-shapes>(){}[0]
+    final val typography // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.typography|{}typography[0]
+        final fun <get-typography>(): com.skydoves.snitcher.ui.theme/SnitcherTypography // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.typography.<get-typography>|<get-typography>(){}[0]
+
+    final fun component1(): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.component1|component1(){}[0]
+    final fun component2(): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.component2|component2(){}[0]
+    final fun component3(): com.skydoves.snitcher.ui.theme/SnitcherTypography // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.component3|component3(){}[0]
+    final fun component4(): com.skydoves.snitcher.ui.theme/SnitcherShapes // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.component4|component4(){}[0]
+    final fun copy(com.skydoves.snitcher.ui.theme/SnitcherColor = ..., com.skydoves.snitcher.ui.theme/SnitcherColor = ..., com.skydoves.snitcher.ui.theme/SnitcherTypography = ..., com.skydoves.snitcher.ui.theme/SnitcherShapes = ...): com.skydoves.snitcher.ui.theme/SnitcherThemeConfig // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.copy|copy(com.skydoves.snitcher.ui.theme.SnitcherColor;com.skydoves.snitcher.ui.theme.SnitcherColor;com.skydoves.snitcher.ui.theme.SnitcherTypography;com.skydoves.snitcher.ui.theme.SnitcherShapes){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.toString|toString(){}[0]
+
+    final object Companion { // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.Companion|null[0]
+        final fun defaultThemeConfig(): com.skydoves.snitcher.ui.theme/SnitcherThemeConfig // com.skydoves.snitcher.ui.theme/SnitcherThemeConfig.Companion.defaultThemeConfig|defaultThemeConfig(){}[0]
+    }
+}
+
+final class com.skydoves.snitcher.ui.theme/SnitcherTypography { // com.skydoves.snitcher.ui.theme/SnitcherTypography|null[0]
+    constructor <init>(androidx.compose.ui.text/TextStyle, androidx.compose.ui.text/TextStyle, androidx.compose.ui.text/TextStyle, androidx.compose.ui.text/TextStyle, androidx.compose.ui.text/TextStyle, androidx.compose.ui.text/TextStyle) // com.skydoves.snitcher.ui.theme/SnitcherTypography.<init>|<init>(androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle){}[0]
+
+    final val button // com.skydoves.snitcher.ui.theme/SnitcherTypography.button|{}button[0]
+        final fun <get-button>(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.button.<get-button>|<get-button>(){}[0]
+    final val deviceInfo // com.skydoves.snitcher.ui.theme/SnitcherTypography.deviceInfo|{}deviceInfo[0]
+        final fun <get-deviceInfo>(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.deviceInfo.<get-deviceInfo>|<get-deviceInfo>(){}[0]
+    final val message // com.skydoves.snitcher.ui.theme/SnitcherTypography.message|{}message[0]
+        final fun <get-message>(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.message.<get-message>|<get-message>(){}[0]
+    final val sectionLabel // com.skydoves.snitcher.ui.theme/SnitcherTypography.sectionLabel|{}sectionLabel[0]
+        final fun <get-sectionLabel>(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.sectionLabel.<get-sectionLabel>|<get-sectionLabel>(){}[0]
+    final val stacktrace // com.skydoves.snitcher.ui.theme/SnitcherTypography.stacktrace|{}stacktrace[0]
+        final fun <get-stacktrace>(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.stacktrace.<get-stacktrace>|<get-stacktrace>(){}[0]
+    final val title // com.skydoves.snitcher.ui.theme/SnitcherTypography.title|{}title[0]
+        final fun <get-title>(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.title.<get-title>|<get-title>(){}[0]
+
+    final fun component1(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.component1|component1(){}[0]
+    final fun component2(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.component2|component2(){}[0]
+    final fun component3(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.component3|component3(){}[0]
+    final fun component4(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.component4|component4(){}[0]
+    final fun component5(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.component5|component5(){}[0]
+    final fun component6(): androidx.compose.ui.text/TextStyle // com.skydoves.snitcher.ui.theme/SnitcherTypography.component6|component6(){}[0]
+    final fun copy(androidx.compose.ui.text/TextStyle = ..., androidx.compose.ui.text/TextStyle = ..., androidx.compose.ui.text/TextStyle = ..., androidx.compose.ui.text/TextStyle = ..., androidx.compose.ui.text/TextStyle = ..., androidx.compose.ui.text/TextStyle = ...): com.skydoves.snitcher.ui.theme/SnitcherTypography // com.skydoves.snitcher.ui.theme/SnitcherTypography.copy|copy(androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle;androidx.compose.ui.text.TextStyle){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.skydoves.snitcher.ui.theme/SnitcherTypography.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.skydoves.snitcher.ui.theme/SnitcherTypography.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.skydoves.snitcher.ui.theme/SnitcherTypography.toString|toString(){}[0]
+
+    final object Companion { // com.skydoves.snitcher.ui.theme/SnitcherTypography.Companion|null[0]
+        final fun defaultTypography(): com.skydoves.snitcher.ui.theme/SnitcherTypography // com.skydoves.snitcher.ui.theme/SnitcherTypography.Companion.defaultTypography|defaultTypography(){}[0]
+    }
+}
+
+final class com.skydoves.snitcher/SnitcherStrings { // com.skydoves.snitcher/SnitcherStrings|null[0]
+    constructor <init>(kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ...) // com.skydoves.snitcher/SnitcherStrings.<init>|<init>(kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+
+    final val restoreButton // com.skydoves.snitcher/SnitcherStrings.restoreButton|{}restoreButton[0]
+        final fun <get-restoreButton>(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.restoreButton.<get-restoreButton>|<get-restoreButton>(){}[0]
+    final val restoreDescription // com.skydoves.snitcher/SnitcherStrings.restoreDescription|{}restoreDescription[0]
+        final fun <get-restoreDescription>(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.restoreDescription.<get-restoreDescription>|<get-restoreDescription>(){}[0]
+    final val restoreTitle // com.skydoves.snitcher/SnitcherStrings.restoreTitle|{}restoreTitle[0]
+        final fun <get-restoreTitle>(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.restoreTitle.<get-restoreTitle>|<get-restoreTitle>(){}[0]
+    final val traceCopied // com.skydoves.snitcher/SnitcherStrings.traceCopied|{}traceCopied[0]
+        final fun <get-traceCopied>(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.traceCopied.<get-traceCopied>|<get-traceCopied>(){}[0]
+    final val traceDebugButton // com.skydoves.snitcher/SnitcherStrings.traceDebugButton|{}traceDebugButton[0]
+        final fun <get-traceDebugButton>(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.traceDebugButton.<get-traceDebugButton>|<get-traceDebugButton>(){}[0]
+    final val traceRestoreButton // com.skydoves.snitcher/SnitcherStrings.traceRestoreButton|{}traceRestoreButton[0]
+        final fun <get-traceRestoreButton>(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.traceRestoreButton.<get-traceRestoreButton>|<get-traceRestoreButton>(){}[0]
+    final val traceStacktrace // com.skydoves.snitcher/SnitcherStrings.traceStacktrace|{}traceStacktrace[0]
+        final fun <get-traceStacktrace>(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.traceStacktrace.<get-traceStacktrace>|<get-traceStacktrace>(){}[0]
+
+    final fun component1(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.component1|component1(){}[0]
+    final fun component2(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.component2|component2(){}[0]
+    final fun component3(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.component3|component3(){}[0]
+    final fun component4(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.component4|component4(){}[0]
+    final fun component5(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.component5|component5(){}[0]
+    final fun component6(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.component6|component6(){}[0]
+    final fun component7(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.component7|component7(){}[0]
+    final fun copy(kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ..., kotlin/String = ...): com.skydoves.snitcher/SnitcherStrings // com.skydoves.snitcher/SnitcherStrings.copy|copy(kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.skydoves.snitcher/SnitcherStrings.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.skydoves.snitcher/SnitcherStrings.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.skydoves.snitcher/SnitcherStrings.toString|toString(){}[0]
+
+    final object Companion { // com.skydoves.snitcher/SnitcherStrings.Companion|null[0]
+        final fun defaultStrings(): com.skydoves.snitcher/SnitcherStrings // com.skydoves.snitcher/SnitcherStrings.Companion.defaultStrings|defaultStrings(){}[0]
+    }
+}
+
+final object com.skydoves.snitcher.ui.theme/SnitcherTheme { // com.skydoves.snitcher.ui.theme/SnitcherTheme|null[0]
+    final val colors // com.skydoves.snitcher.ui.theme/SnitcherTheme.colors|{}colors[0]
+        final fun <get-colors>(androidx.compose.runtime/Composer?, kotlin/Int): com.skydoves.snitcher.ui.theme/SnitcherColor // com.skydoves.snitcher.ui.theme/SnitcherTheme.colors.<get-colors>|<get-colors>(androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+    final val shapes // com.skydoves.snitcher.ui.theme/SnitcherTheme.shapes|{}shapes[0]
+        final fun <get-shapes>(androidx.compose.runtime/Composer?, kotlin/Int): com.skydoves.snitcher.ui.theme/SnitcherShapes // com.skydoves.snitcher.ui.theme/SnitcherTheme.shapes.<get-shapes>|<get-shapes>(androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+    final val typography // com.skydoves.snitcher.ui.theme/SnitcherTheme.typography|{}typography[0]
+        final fun <get-typography>(androidx.compose.runtime/Composer?, kotlin/Int): com.skydoves.snitcher.ui.theme/SnitcherTypography // com.skydoves.snitcher.ui.theme/SnitcherTheme.typography.<get-typography>|<get-typography>(androidx.compose.runtime.Composer?;kotlin.Int){}[0]
+}
+
+final object com.skydoves.snitcher/Snitcher { // com.skydoves.snitcher/Snitcher|null[0]
+    final val exception // com.skydoves.snitcher/Snitcher.exception|{}exception[0]
+        final fun <get-exception>(): kotlinx.coroutines.flow/StateFlow<com.skydoves.snitcher.model/SnitcherException?> // com.skydoves.snitcher/Snitcher.exception.<get-exception>|<get-exception>(){}[0]
+    final val isInstalled // com.skydoves.snitcher/Snitcher.isInstalled|{}isInstalled[0]
+        final fun <get-isInstalled>(): kotlin/Boolean // com.skydoves.snitcher/Snitcher.isInstalled.<get-isInstalled>|<get-isInstalled>(){}[0]
+    final val latestException // com.skydoves.snitcher/Snitcher.latestException|{}latestException[0]
+        final fun <get-latestException>(): com.skydoves.snitcher.model/SnitcherException? // com.skydoves.snitcher/Snitcher.latestException.<get-latestException>|<get-latestException>(){}[0]
+
+    final var isDebuggable // com.skydoves.snitcher/Snitcher.isDebuggable|{}isDebuggable[0]
+        final fun <get-isDebuggable>(): kotlin/Boolean // com.skydoves.snitcher/Snitcher.isDebuggable.<get-isDebuggable>|<get-isDebuggable>(){}[0]
+        final fun <set-isDebuggable>(kotlin/Boolean) // com.skydoves.snitcher/Snitcher.isDebuggable.<set-isDebuggable>|<set-isDebuggable>(kotlin.Boolean){}[0]
+    final var platformInfo // com.skydoves.snitcher/Snitcher.platformInfo|{}platformInfo[0]
+        final fun <get-platformInfo>(): kotlin/String // com.skydoves.snitcher/Snitcher.platformInfo.<get-platformInfo>|<get-platformInfo>(){}[0]
+        final fun <set-platformInfo>(kotlin/String) // com.skydoves.snitcher/Snitcher.platformInfo.<set-platformInfo>|<set-platformInfo>(kotlin.String){}[0]
+    final var strings // com.skydoves.snitcher/Snitcher.strings|{}strings[0]
+        final fun <get-strings>(): com.skydoves.snitcher/SnitcherStrings // com.skydoves.snitcher/Snitcher.strings.<get-strings>|<get-strings>(){}[0]
+        final fun <set-strings>(com.skydoves.snitcher/SnitcherStrings) // com.skydoves.snitcher/Snitcher.strings.<set-strings>|<set-strings>(com.skydoves.snitcher.SnitcherStrings){}[0]
+    final var theme // com.skydoves.snitcher/Snitcher.theme|{}theme[0]
+        final fun <get-theme>(): com.skydoves.snitcher.ui.theme/SnitcherThemeConfig // com.skydoves.snitcher/Snitcher.theme.<get-theme>|<get-theme>(){}[0]
+        final fun <set-theme>(com.skydoves.snitcher.ui.theme/SnitcherThemeConfig) // com.skydoves.snitcher/Snitcher.theme.<set-theme>|<set-theme>(com.skydoves.snitcher.ui.theme.SnitcherThemeConfig){}[0]
+
+    final fun clear() // com.skydoves.snitcher/Snitcher.clear|clear(){}[0]
+}
+
+final val com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherException$stableprop // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherException$stableprop|#static{}com_skydoves_snitcher_model_SnitcherException$stableprop[0]
+final val com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherException_$serializer$stableprop // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherException_$serializer$stableprop|#static{}com_skydoves_snitcher_model_SnitcherException_$serializer$stableprop[0]
+final val com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherPreference_$serializer$stableprop // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherPreference_$serializer$stableprop|#static{}com_skydoves_snitcher_model_SnitcherPreference_$serializer$stableprop[0]
+final val com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherStackTraceElement$stableprop // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherStackTraceElement$stableprop|#static{}com_skydoves_snitcher_model_SnitcherStackTraceElement$stableprop[0]
+final val com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherStackTraceElement_$serializer$stableprop // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherStackTraceElement_$serializer$stableprop|#static{}com_skydoves_snitcher_model_SnitcherStackTraceElement_$serializer$stableprop[0]
+final val com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherColor$stableprop // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherColor$stableprop|#static{}com_skydoves_snitcher_ui_theme_SnitcherColor$stableprop[0]
+final val com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherShapes$stableprop // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherShapes$stableprop|#static{}com_skydoves_snitcher_ui_theme_SnitcherShapes$stableprop[0]
+final val com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherTheme$stableprop // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherTheme$stableprop|#static{}com_skydoves_snitcher_ui_theme_SnitcherTheme$stableprop[0]
+final val com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherThemeConfig$stableprop // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherThemeConfig$stableprop|#static{}com_skydoves_snitcher_ui_theme_SnitcherThemeConfig$stableprop[0]
+final val com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherTypography$stableprop // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherTypography$stableprop|#static{}com_skydoves_snitcher_ui_theme_SnitcherTypography$stableprop[0]
+final val com.skydoves.snitcher/com_skydoves_snitcher_Snitcher$stableprop // com.skydoves.snitcher/com_skydoves_snitcher_Snitcher$stableprop|#static{}com_skydoves_snitcher_Snitcher$stableprop[0]
+final val com.skydoves.snitcher/com_skydoves_snitcher_SnitcherStrings$stableprop // com.skydoves.snitcher/com_skydoves_snitcher_SnitcherStrings$stableprop|#static{}com_skydoves_snitcher_SnitcherStrings$stableprop[0]
+
+final fun (com.skydoves.snitcher/Snitcher).com.skydoves.snitcher/install() // com.skydoves.snitcher/install|install@com.skydoves.snitcher.Snitcher(){}[0]
+final fun (com.skydoves.snitcher/Snitcher).com.skydoves.snitcher/install(kotlin/String = ..., com.skydoves.snitcher.ui.theme/SnitcherThemeConfig = ..., com.skydoves.snitcher/SnitcherStrings = ..., kotlin/String = ..., kotlin/Boolean = ..., kotlin/Function1<com.skydoves.snitcher.model/SnitcherException, kotlin/Unit> = ...) // com.skydoves.snitcher/install|install@com.skydoves.snitcher.Snitcher(kotlin.String;com.skydoves.snitcher.ui.theme.SnitcherThemeConfig;com.skydoves.snitcher.SnitcherStrings;kotlin.String;kotlin.Boolean;kotlin.Function1<com.skydoves.snitcher.model.SnitcherException,kotlin.Unit>){}[0]
+final fun com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherException$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherException$stableprop_getter|com_skydoves_snitcher_model_SnitcherException$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherException_$serializer$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherException_$serializer$stableprop_getter|com_skydoves_snitcher_model_SnitcherException_$serializer$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherPreference_$serializer$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherPreference_$serializer$stableprop_getter|com_skydoves_snitcher_model_SnitcherPreference_$serializer$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherStackTraceElement$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherStackTraceElement$stableprop_getter|com_skydoves_snitcher_model_SnitcherStackTraceElement$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherStackTraceElement_$serializer$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.model/com_skydoves_snitcher_model_SnitcherStackTraceElement_$serializer$stableprop_getter|com_skydoves_snitcher_model_SnitcherStackTraceElement_$serializer$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.ui.theme/SnitcherTheme(kotlin/Boolean, com.skydoves.snitcher.ui.theme/SnitcherColor?, com.skydoves.snitcher.ui.theme/SnitcherTypography?, com.skydoves.snitcher.ui.theme/SnitcherShapes?, kotlin/Function2<androidx.compose.runtime/Composer, kotlin/Int, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.skydoves.snitcher.ui.theme/SnitcherTheme|SnitcherTheme(kotlin.Boolean;com.skydoves.snitcher.ui.theme.SnitcherColor?;com.skydoves.snitcher.ui.theme.SnitcherTypography?;com.skydoves.snitcher.ui.theme.SnitcherShapes?;kotlin.Function2<androidx.compose.runtime.Composer,kotlin.Int,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherColor$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherColor$stableprop_getter|com_skydoves_snitcher_ui_theme_SnitcherColor$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherShapes$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherShapes$stableprop_getter|com_skydoves_snitcher_ui_theme_SnitcherShapes$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherTheme$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherTheme$stableprop_getter|com_skydoves_snitcher_ui_theme_SnitcherTheme$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherThemeConfig$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherThemeConfig$stableprop_getter|com_skydoves_snitcher_ui_theme_SnitcherThemeConfig$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherTypography$stableprop_getter(): kotlin/Int // com.skydoves.snitcher.ui.theme/com_skydoves_snitcher_ui_theme_SnitcherTypography$stableprop_getter|com_skydoves_snitcher_ui_theme_SnitcherTypography$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher.ui/AppRestoreScreen(androidx.compose.ui/Modifier?, kotlin/Function0<kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.skydoves.snitcher.ui/AppRestoreScreen|AppRestoreScreen(androidx.compose.ui.Modifier?;kotlin.Function0<kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.skydoves.snitcher.ui/ExceptionTraceScreen(com.skydoves.snitcher.model/SnitcherException, androidx.compose.ui/Modifier?, kotlin/Function0<kotlin/Unit>?, kotlin/Function0<kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.skydoves.snitcher.ui/ExceptionTraceScreen|ExceptionTraceScreen(com.skydoves.snitcher.model.SnitcherException;androidx.compose.ui.Modifier?;kotlin.Function0<kotlin.Unit>?;kotlin.Function0<kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+final fun com.skydoves.snitcher.ui/snitcherViewController(kotlin/Function0<kotlin/Unit>? = ...): platform.UIKit/UIViewController // com.skydoves.snitcher.ui/snitcherViewController|snitcherViewController(kotlin.Function0<kotlin.Unit>?){}[0]
+final fun com.skydoves.snitcher/com_skydoves_snitcher_Snitcher$stableprop_getter(): kotlin/Int // com.skydoves.snitcher/com_skydoves_snitcher_Snitcher$stableprop_getter|com_skydoves_snitcher_Snitcher$stableprop_getter(){}[0]
+final fun com.skydoves.snitcher/com_skydoves_snitcher_SnitcherStrings$stableprop_getter(): kotlin/Int // com.skydoves.snitcher/com_skydoves_snitcher_SnitcherStrings$stableprop_getter|com_skydoves_snitcher_SnitcherStrings$stableprop_getter(){}[0]

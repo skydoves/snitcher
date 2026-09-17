@@ -1,5 +1,7 @@
 # Trace Strategy
 
+This one is Android only, since it decides whether the trace Activity is launched after a crash.
+
 You can globally trace exceptions by providing the `exceptionHandler` lambda parameter during Snitcher installation. However, there might be instances where you don't wish to launch the trace Activity but rather perform other actions, such as reporting crashes or sending messages to a `BroadcastReceiver`. In such cases, you can modify the trace strategy as shown in the example below:
 
 ```kotlin

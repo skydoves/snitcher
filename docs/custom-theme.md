@@ -1,6 +1,6 @@
 # Snitcher Theme
 
-The pre-built screens are styled by a `SnitcherThemeConfig`. Give one to `Snitcher.install`, and the built-in `ExceptionTraceActivity`, as well as every screen you wrap in `SnitcherTheme`, will be drawn with it:
+The pre-built screens are styled by a `SnitcherThemeConfig`. Give one to the platform installer, and the built-in `ExceptionTraceActivity`, as well as every screen you wrap in `SnitcherTheme`, will be drawn with it:
 
 ```kotlin
 Snitcher.install(
@@ -16,7 +16,7 @@ Snitcher.install(
 )
 ```
 
-`lightColors` and `darkColors` are picked by the system dark mode. Every field has a default, so you only need to declare what you want to change.
+`lightColors` and `darkColors` are picked by the system dark mode. Start from `defaultColors()`, `defaultDarkColors()` and `defaultTypography()` and `copy` what you want to change, since a palette and a typography carry no partial defaults.
 
 **SnitcherColor**
 
@@ -47,24 +47,36 @@ If you build your own trace screens, wrap them in `SnitcherTheme`. Its defaults 
 
 ```kotlin
 SnitcherTheme(
-  colors = SnitcherTheme.colors.copy(primary = Color.Blue),
+  colors = Snitcher.theme.lightColors.copy(primary = Color.Blue),
 ) {
-  if (exception != null) {
-    ExceptionTraceScreen(
-      launcher = launcher,
-      snitcherException = exception!!,
-    )
+  exception?.let {
+    ExceptionTraceScreen(snitcherException = it, onRestore = { Snitcher.clear() })
   }
 }
 ```
 
-If you wish to personalize the text strings within the pre-built UIs, you can override the following string values within your `strings.xml` file:
+`SnitcherTheme.colors` reads the theme of the surrounding composition, so build the argument from `Snitcher.theme` rather than from `SnitcherTheme.colors` when you call `SnitcherTheme` yourself.
 
-```xml
-<string name="snitcher_release_crash_screen_title">Oops, Restore the previous screen?</string>
-<string name="snitcher_release_crash_screen_description">The app crashed unexpectedly. We apologize for the inconvenience. Would you like to return to where you left off?</string>
-<string name="snitcher_release_crash_screen_restore">Restore</string>
-<string name="snitcher_debug_crash_screen_restore">Restore App</string>
-<string name="snitcher_debug_crash_screen_debug_on_ide">Debug on IDE</string>
-<string name="snitcher_debug_crash_screen_stacktrace">Stacktrace</string>
+The texts of the pre-built screens are plain strings rather than platform resources, so they are shared across platforms. Give a `SnitcherStrings` to the installer to translate or reword them:
+
+```kotlin
+Snitcher.install(
+  application = this,
+  strings = SnitcherStrings(
+    restoreTitle = "Oops, Restore the previous screen?",
+    restoreDescription = "The app crashed unexpectedly. Would you like to return to where you left off?",
+    restoreButton = "Restore",
+    traceRestoreButton = "Restore App",
+    traceDebugButton = "Debug on IDE",
+    traceStacktrace = "Stacktrace",
+    traceCopied = "Copied!",
+  ),
+)
+```
+
+Both can also be replaced at any time, which restyles the screens right away:
+
+```kotlin
+Snitcher.theme = Snitcher.theme.copy(darkColors = SnitcherColor.defaultDarkColors())
+Snitcher.strings = SnitcherStrings(traceStacktrace = "Stack trace")
 ```
