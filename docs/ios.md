@@ -19,7 +19,7 @@ kotlin {
 
   sourceSets {
     commonMain.dependencies {
-      implementation("com.github.skydoves:snitcher:2.0.0")
+      implementation("com.github.skydoves:snitcher:1.1.0")
     }
   }
 }

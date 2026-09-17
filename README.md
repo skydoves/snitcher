@@ -41,7 +41,7 @@ Add the dependency below to your **module**'s `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("com.github.skydoves:snitcher:2.0.0")
+    implementation("com.github.skydoves:snitcher:1.1.0")
 }
 ```
 
@@ -51,7 +51,7 @@ In a multiplatform module, add it to the source set that needs it:
 kotlin {
   sourceSets {
     commonMain.dependencies {
-      implementation("com.github.skydoves:snitcher:2.0.0")
+      implementation("com.github.skydoves:snitcher:1.1.0")
     }
   }
 }
